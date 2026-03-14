@@ -427,9 +427,8 @@
     <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
         <div class="publication-video">
-          <video id="teaser" autoplay controls muted loop playsinline height="100%" style="max-width: 100%; margin: 0 auto;">
-            <source src="videos/teaser.mp4"
-                    type="video/mp4">
+          <video id="teaser" autoplay controls muted loop playsinline style="width: 100%; max-width: 100%; margin: 0 auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 1px solid rgba(0,0,0,0.1);">
+            <source src="videos/teaser.mp4" type="video/mp4">
           </video>
         </div>
         <h2 class="subtitle" style="max-width: 95%; margin-left: auto; margin-right: auto; text-align: justify; text-justify: inter-word;">
@@ -479,171 +478,41 @@
 
 <section class="section">
   <div class="container is-max-desktop">
-    <h3 class="title is-3 has-text-centered">Objects Used for Evaluation</h3>
-    <h2 class="subtitle has-text-centered" style="background-color: #f5f5f5; padding: 1.5rem 1.5rem; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 2rem; margin-top: 2rem; max-width: 100%; margin-left: auto; margin-right: auto;">
-      Our method is evaluated on a diverse set of objects with various materials, shapes, and masses, which are all unseen during training.
-    </h2>
-    <!-- <div class="content has-text-justified" style="background-color: #f5f5f5; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-      <p>
-        Our method is evaluated on a diverse set of objects with various materials, shapes, and masses, which all unseen during training.
-      </p>
-    </div> -->
+    <h3 class="title is-3 has-text-centered">Policy Autonomous Rollouts</h3>
     <div class="columns is-centered">
-      <div class="column is-full-width">
-
-        <div class="has-text-centered">
-          <div class="content">
-            <div class="video-placeholder is-wide">Image TODO</div>
-          </div>
-        </div>
-        <h2 class="subtitle has-text-centered">
-          500+ real-world objects used in our experiments.
-        </h2>
-
-        <div class="has-text-centered">
-          <div class="content">
-            <div class="video-placeholder is-wide" style="margin-top: 2rem;">Image TODO</div>
-          </div>
-        </div>
-        <h2 class="subtitle has-text-centered">
-          Distribution of object attributes.
-        </h2>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container is-max-desktop">
-  <h3 class="title is-3 has-text-centered">Generalization</h3>
-  <h2 class="subtitle has-text-centered" style="background-color: #f5f5f5; padding: 1.5rem 1.5rem; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 2rem; margin-top: 2rem; max-width: 100%; margin-left: auto; margin-right: auto;">
-    Trained with only 35 objects in simulation, our method demonstrates exceptional generalization capability across <strong>500+ unseen real objects</strong> with various <strong>physical properties</strong> and <strong>random poses</strong>.
-  </h2>
-  <!-- <div class="content has-text-justified" style="background-color: #f5f5f5; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-    <p>
-      Trained with only 20 objects in simulation, our method demonstrates exceptional generalization capability across <strong>500+ unseen real objects</strong> with various physical properties and random poses.
-    </p>
-  </div> -->
-  <div class="columns is-centered">
-      <div class="column is-full-width">
-
-        <div class="has-text-centered">
-          <div class="content">
-            <div class="video-placeholder">Video TODO</div>
-          </div>
-        </div>
-        <h2 class="subtitle has-text-centered">
-          <strong>Continual</strong> robust grasping of diverse objects with varying <strong>shapes</strong>, <strong>weights</strong>, and <strong>materials</strong>.
-        </h2>
-
-        <div class="has-text-centered">
-          <div class="content">
-            <div class="video-placeholder">Video TODO</div>
-          </div>
-        </div>
-        <h2 class="subtitle has-text-centered">
-        Robust grasping of the same objects with <strong>random poses</strong> on the table.
-        </h2>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container is-max-desktop">
-  <h3 class="title is-3 has-text-centered">Robustness</h3>
-  <h2 class="subtitle has-text-centered" style="background-color: #f5f5f5; padding: 1.5rem 1.5rem; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 2rem; margin-top: 2rem; max-width: 100%; margin-left: auto; margin-right: auto;">
-    Utilizing a reinforcement-learning-based training framework, our method shows great <strong>robustness</strong> and <strong>adaptability</strong> to internal noises and external disturbances.
-  </h2>
-  <!-- <div class="content has-text-justified" style="background-color: #f5f5f5; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-    <p>
-      Utilizing RL, our method shows great robustness and adaptability to internal & external disturbances.
-    </p>
-  </div> -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <div class="has-text-centered">
-          <div class="content">
-            <div class="video-placeholder">Video TODO</div>
-          </div>
-        </div>
-        <h2 class="subtitle has-text-centered">
-          Adaptive motions to <strong>observation noises</strong> and <strong>actuator inaccuracies</strong>.
-        </h2>
-      
-        <div class="has-text-centered">
-          <div class="content">
-            <div class="video-placeholder">Video TODO</div>
-          </div>
-        </div>
-        <h2 class="subtitle has-text-centered">
-          Maintaining stable grasps despite external disturbances such as <strong>unexpected forces</strong>.
-        </h2>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="container is-max-desktop">
-  <h3 class="title is-3 has-text-centered">Zero-shot Applications</h3>    
-  <div class="columns is-centered">
       <div class="column is-full-width">
         <div class="columns is-multiline">
-          <!-- 第一行第一列 -->
           <div class="column is-6">
             <div class="has-text-centered">
-              <div class="content" style="position: relative;">
+              <div class="content">
                 <div class="video-placeholder is-wide">Video TODO</div>
-                <div style="position: absolute; top: 5px; left: 10px; color: #7356a5; font-weight: bold; font-size: 24px;">x1</div>
               </div>
             </div>
-            <h2 class="subtitle has-text-centered">
-              Grasp target objects in cluttered environments<br>with a segmentation module.
-            </h2>
+            <h2 class="subtitle has-text-centered">Video 1</h2>
           </div>
-          
-          <!-- 第一行第二列 -->
           <div class="column is-6">
             <div class="has-text-centered">
-              <div class="content" style="position: relative;">
+              <div class="content">
                 <div class="video-placeholder is-wide">Video TODO</div>
-                <div style="position: absolute; top: 5px; left: 10px; color: #7356a5; font-weight: bold; font-size: 24px;">x5</div>
               </div>
             </div>
-            <h2 class="subtitle has-text-centered">
-              Play chess with a VLM planner.
-            </h2>
+            <h2 class="subtitle has-text-centered">Video 2</h2>
           </div>
-          
-          <!-- 第二行第一列 -->
           <div class="column is-6">
             <div class="has-text-centered">
-              <div class="content" style="position: relative;">
+              <div class="content">
                 <div class="video-placeholder is-wide">Video TODO</div>
-                <div style="position: absolute; top: 5px; left: 10px; color: #7356a5; font-weight: bold; font-size: 24px;">x5</div>
               </div>
             </div>
-            <h2 class="subtitle has-text-centered">
-              Grasp moving objects<br>with an object tracking module.
-            </h2>
+            <h2 class="subtitle has-text-centered">Video 3</h2>
           </div>
-          
-          <!-- 第二行第二列 -->
           <div class="column is-6">
             <div class="has-text-centered">
-              <div class="content" style="position: relative;">
+              <div class="content">
                 <div class="video-placeholder is-wide">Video TODO</div>
-                <div style="position: absolute; top: 5px; left: 10px; color: #7356a5; font-weight: bold; font-size: 24px;">x5</div>
               </div>
             </div>
-            <h2 class="subtitle has-text-centered">
-              Task-driven grasping with a VLM planner.
-            </h2>
+            <h2 class="subtitle has-text-centered">Video 4</h2>
           </div>
         </div>
       </div>
@@ -653,43 +522,44 @@
 
 <section class="section">
   <div class="container is-max-desktop">
-  <h3 class="title is-3 has-text-centered">Method Comparison</h3>
-  <h2 class="subtitle has-text-centered" style="background-color: #f5f5f5; padding: 1.5rem 1.5rem; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 2rem; margin-top: 2rem; max-width: 100%; margin-left: auto; margin-right: auto;">
-    With closed-loop RL-based dynamic control, our method demonstrates adaptive arm and finger motions, leading to robust grasping. We compare our method with: 
-    <br>
-    1) executing grasping poses from DexGraspNet (with extra torques for firm grasps)
-    <!-- 2) executing a grasping pose pre-generated by DexGraspNet with extra torques to for firm grasps,  -->
-    <br>
-    2) a naive controller that gradually closes fingers to grasp objects
-  </h2>
-  <div class="columns is-centered">
+    <h3 class="title is-3 has-text-centered">Policy Robustness</h3>
+    <div class="columns is-centered">
       <div class="column is-full-width">
-        <div class="has-text-centered">
-          <div class="content">
-            <div class="video-placeholder">Video TODO</div>
+        <div class="columns is-multiline">
+          <div class="column is-6">
+            <div class="has-text-centered">
+              <div class="content">
+                <div class="video-placeholder is-wide">Video TODO</div>
+              </div>
+            </div>
+            <h2 class="subtitle has-text-centered">Video 1</h2>
+          </div>
+          <div class="column is-6">
+            <div class="has-text-centered">
+              <div class="content">
+                <div class="video-placeholder is-wide">Video TODO</div>
+              </div>
+            </div>
+            <h2 class="subtitle has-text-centered">Video 2</h2>
+          </div>
+          <div class="column is-6">
+            <div class="has-text-centered">
+              <div class="content">
+                <div class="video-placeholder is-wide">Video TODO</div>
+              </div>
+            </div>
+            <h2 class="subtitle has-text-centered">Video 3</h2>
+          </div>
+          <div class="column is-6">
+            <div class="has-text-centered">
+              <div class="content">
+                <div class="video-placeholder is-wide">Video TODO</div>
+              </div>
+            </div>
+            <h2 class="subtitle has-text-centered">Video 4</h2>
           </div>
         </div>
-        <h2 class="subtitle has-text-centered">
-          The baselines suffer from <strong>inperfect grasp pose</strong> or <strong>undesired object movements</strong>.
-        </h2>
-        
-        <div class="has-text-centered">
-          <div class="content">
-            <div class="video-placeholder">Video TODO</div>
-          </div>
-        </div>
-        <h2 class="subtitle has-text-centered">
-           The baselines suffer from <strong>thin objects</strong> due to the requirement of precise contact points.
-        </h2>
-        
-        <div class="has-text-centered">
-          <div class="content">
-            <div class="video-placeholder">Video TODO</div>
-          </div>
-        </div>
-        <h2 class="subtitle has-text-centered">
-          The baselines suffer from <strong>round objects</strong> as misaligned torques lead to non-force closure grasps.
-        </h2>
+      </div>
     </div>
   </div>
 </section>
