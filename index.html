@@ -265,6 +265,25 @@
       line-height: 1.7;
       font-size: 1.05rem;
     }
+
+    .video-placeholder {
+      width: 80%;
+      margin: 0 auto;
+      min-height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      border: 1px dashed rgba(58, 123, 213, 0.35);
+      background: linear-gradient(135deg, rgba(58, 123, 213, 0.08), rgba(44, 62, 80, 0.04));
+      color: #4d7085;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .video-placeholder.is-wide {
+      width: 100%;
+    }
     
     /* 添加引用样式 */
     pre {
@@ -456,7 +475,7 @@
 
         <div class="has-text-centered">
           <div class="content">
-            <img src="objects.png" alt="Diverse set of test objects" style="max-width: 100%; margin: 0 auto; border-radius: 8px;">
+            <div class="video-placeholder is-wide">Image TODO</div>
           </div>
         </div>
         <h2 class="subtitle has-text-centered">
@@ -465,7 +484,7 @@
 
         <div class="has-text-centered">
           <div class="content">
-            <img src="attributes.png" alt="Object attributes" style="max-width: 100%; margin: 2rem auto 0; border-radius: 8px;">
+            <div class="video-placeholder is-wide" style="margin-top: 2rem;">Image TODO</div>
           </div>
         </div>
         <h2 class="subtitle has-text-centered">
@@ -493,10 +512,7 @@
 
         <div class="has-text-centered">
           <div class="content">
-            <video id="unzip_video2" autoplay controls muted loop playsinline height="100%" style="max-width: 80%; margin: 0 auto;">
-          <source src="properties.mp4"
-                      type="video/mp4">
-            </video>
+            <div class="video-placeholder">Video TODO</div>
           </div>
         </div>
         <h2 class="subtitle has-text-centered">
@@ -505,10 +521,7 @@
 
         <div class="has-text-centered">
           <div class="content">
-            <video id="unzip_video2" autoplay controls muted loop playsinline height="100%" style="max-width: 80%; margin: 0 auto;">
-          <source src="pose.mp4"
-                      type="video/mp4">
-            </video>
+            <div class="video-placeholder">Video TODO</div>
           </div>
         </div>
         <h2 class="subtitle has-text-centered">
@@ -535,34 +548,16 @@
       <div class="column is-full-width">
         <div class="has-text-centered">
           <div class="content">
-            <video id="multimat-video" autoplay controls muted loop playsinline height="60%" style="max-width: 80%; margin: 0 auto;">
-              <source src="internal.mp4"
-                      type="video/mp4">
-            </video>
+            <div class="video-placeholder">Video TODO</div>
           </div>
         </div>
         <h2 class="subtitle has-text-centered">
           Adaptive motions to <strong>observation noises</strong> and <strong>actuator inaccuracies</strong>.
         </h2>
       
-        <!-- <div class="has-text-centered">
-          <div class="content">
-            <video id="multimat-video2" autoplay controls muted loop playsinline height="100%" style="max-width: 80%; margin: 0 auto;">
-              <source src="movement.mp4"
-                      type="video/mp4">
-            </video>
-          </div>
-        </div>
-        <h2 class="subtitle has-text-centered">
-          Real-time adaptation to environmental changes such as <strong>object movements</strong>.
-        </h2> -->
-
         <div class="has-text-centered">
           <div class="content">
-            <video id="unzip_video2" autoplay controls muted loop playsinline height="100%" style="max-width: 80%; margin: 0 auto;">
-              <source src="force.mp4"
-                      type="video/mp4">
-            </video>
+            <div class="video-placeholder">Video TODO</div>
           </div>
         </div>
         <h2 class="subtitle has-text-centered">
@@ -585,9 +580,7 @@
           <div class="column is-6">
             <div class="has-text-centered">
               <div class="content" style="position: relative;">
-                <video autoplay controls muted loop playsinline height="100%" style="max-width: 100%; margin: 0 auto;">
-                  <source src="cluttered.mp4" type="video/mp4">
-                </video>
+                <div class="video-placeholder is-wide">Video TODO</div>
                 <div style="position: absolute; top: 5px; left: 10px; color: #7356a5; font-weight: bold; font-size: 24px;">x1</div>
               </div>
             </div>
@@ -600,9 +593,7 @@
           <div class="column is-6">
             <div class="has-text-centered">
               <div class="content" style="position: relative;">
-                <video autoplay controls muted loop playsinline height="100%" style="max-width: 100%; margin: 0 auto;">
-                  <source src="chess.mp4" type="video/mp4">
-                </video>
+                <div class="video-placeholder is-wide">Video TODO</div>
                 <div style="position: absolute; top: 5px; left: 10px; color: #7356a5; font-weight: bold; font-size: 24px;">x5</div>
               </div>
             </div>
@@ -615,9 +606,7 @@
           <div class="column is-6">
             <div class="has-text-centered">
               <div class="content" style="position: relative;">
-                <video autoplay controls muted loop playsinline height="100%" style="max-width: 100%; margin: 0 auto;">
-                  <source src="moving.mp4" type="video/mp4">
-                </video>
+                <div class="video-placeholder is-wide">Video TODO</div>
                 <div style="position: absolute; top: 5px; left: 10px; color: #7356a5; font-weight: bold; font-size: 24px;">x5</div>
               </div>
             </div>
@@ -630,9 +619,7 @@
           <div class="column is-6">
             <div class="has-text-centered">
               <div class="content" style="position: relative;">
-                <video autoplay controls muted loop playsinline height="100%" style="max-width: 100%; margin: 0 auto;">
-                  <source src="task.mp4" type="video/mp4">
-                </video>
+                <div class="video-placeholder is-wide">Video TODO</div>
                 <div style="position: absolute; top: 5px; left: 10px; color: #7356a5; font-weight: bold; font-size: 24px;">x5</div>
               </div>
             </div>
@@ -661,9 +648,7 @@
       <div class="column is-full-width">
         <div class="has-text-centered">
           <div class="content">
-            <video autoplay controls muted loop playsinline height="100%" style="max-width: 80%; margin: 0 auto;">
-              <source src="hammer.mp4" type="video/mp4">
-            </video>
+            <div class="video-placeholder">Video TODO</div>
           </div>
         </div>
         <h2 class="subtitle has-text-centered">
@@ -672,9 +657,7 @@
         
         <div class="has-text-centered">
           <div class="content">
-            <video autoplay controls muted loop playsinline height="100%" style="max-width: 80%; margin: 0 auto;">
-              <source src="plate.mp4" type="video/mp4">
-            </video>
+            <div class="video-placeholder">Video TODO</div>
           </div>
         </div>
         <h2 class="subtitle has-text-centered">
@@ -683,9 +666,7 @@
         
         <div class="has-text-centered">
           <div class="content">
-            <video autoplay controls muted loop playsinline height="100%" style="max-width: 80%; margin: 0 auto;">
-              <source src="glass.mp4" type="video/mp4">
-            </video>
+            <div class="video-placeholder">Video TODO</div>
           </div>
         </div>
         <h2 class="subtitle has-text-centered">
@@ -698,12 +679,7 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@inproceedings{huang2026hifun,
-      title={{HiFun}: a Hierarchical Framework for Efficient Functional Dexterous Manipulation Learning},
-      author={Huang, Linyi and Hua, Guowei and Xu, Weibin and Wang, Shulong and Tan, Ping and Zhang, Hui and Song, Jie},
-      booktitle={Robotics: Science and Systems (RSS)},
-      year={2026}
-    }
+    <pre><code>Citation information: TODO
 </code></pre>
   </div>
 </section>
