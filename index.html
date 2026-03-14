@@ -409,14 +409,15 @@
       <div class="column is-full-width">
         <div class="publication-video">
           <video id="teaser" autoplay controls muted loop playsinline height="100%" style="max-width: 100%; margin: 0 auto;">
-            <source src="teaser_new.mp4"
+            <source src="videos/submission_demo/hifun_submission_demo.mp4"
                     type="video/mp4">
           </video>
         </div>
-        <h2 class="subtitle has-text-centered" style="max-width: 95%; margin-left: auto; margin-right: auto;">
-          Relying on single-view perception, our method achieves robust grasping (<strong>94.6% success rate</strong>) of 500+ unseen objects with various shapes, sizes, materials, masses, and random poses. 
-          <br>
-          The video shows continuous grasping of diverse objects without failure.
+        <h2 class="subtitle" style="max-width: 95%; margin-left: auto; margin-right: auto; text-align: justify; text-justify: inter-word;">
+          HiFun is a hierarchical framework for efficient real-world functional dexterous manipulation that decouples contact-rich
+          hand primitive skills from arm-hand coordination to simplify exploration and improve data efficiency. Across four
+          challenging real-world tasks, HiFun achieves over 90% success on every task and an average success rate of <strong>95.5%</strong> with
+          <strong>less than 1 hour</strong> of online training, while demonstrating robust adaptation under disturbances.
         </h2>
       </div>
     </div>
@@ -431,7 +432,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified" style="background-color: #f5f5f5; padding: 2rem 1.5rem; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); max-width: 100%; margin-left: auto; margin-right: auto;">
           <p>
-            The ability to robustly grasp a variety of objects is essential for dexterous robots. In this paper, we present a framework for zero-shot dynamic dexterous grasping using single-view visual inputs, designed to be resilient to various disturbances. Our approach utilizes a hand-centric object shape representation based on dynamic distance vectors between finger joints and object surfaces. This representation captures the local shape around potential contact regions rather than focusing on detailed global object geometry, thereby enhancing generalization to shape variations and uncertainties. To address perception limitations, we integrate a privileged teacher policy with a mixed curriculum learning approach, allowing the student policy to effectively distill grasping capabilities and explore for adaptation to disturbances. Trained in simulation, our method achieves success rates of 97.0% across 247,786 simulated objects and 94.6% across 512 real objects, demonstrating remarkable generalization. Quantitative and qualitative results validate the robustness of our policy against various disturbances.
+            Dexterous manipulation with multi-fingered hands offers the potential for human-like functional behaviors. However, learning contact-rich, high-precision skills on real hardware poses challenges due to high-dimensional exploration, the cost of collecting demonstrations, and stringent spatial and temporal requirements for arm-hand coordination. In this work, we propose HiFun, a hierarchical learning framework designed to facilitate effective and efficient real-world functional dexterous manipulation. We decouple contact-rich hand primitive skills from arm-hand coordination. By structuring learning around these hand primitives, rather than searching directly in high-dimensional joint space, we can significantly simplify the exploration space and improve learning efficiency. Specifically, we employ a single kinesthetic demonstration to establish a kinematic prior for finger motions, and utilize human-in-the-loop reinforcement learning (RL) to guide arm control and hand skill activation. Additionally, we enhance fine-grained hand-object interactions through residual RL to refine contact-aware hand skills, along with a multi-head critic to improve temporal coordination between the arm and hand. We evaluate our framework on functional dexterous manipulation tasks that require precise, contact-rich hand motions and tight arm-hand coordination. Our framework achieves high success rates with short online training times and demonstrates robust adaptation to dynamic disturbances.
           </p>
         </div>
       </div>
