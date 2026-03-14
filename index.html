@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="RobustDexGrasp: Robust Dexterous Grasping of General Objects.">
-  <meta name="keywords" content="RobustDexGrasp">
+        content="HiFun: a Hierarchical Framework for Efficient Functional Dexterous Manipulation Learning.">
+  <meta name="keywords" content="HiFun, dexterous manipulation, robotics">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RobustDexGrasp: Robust Dexterous Grasping of General Objects</title>
+  <title>HiFun: a Hierarchical Framework for Efficient Functional Dexterous Manipulation Learning</title>
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
@@ -171,7 +171,7 @@
     
     /* 添加主标题和副标题样式 */
     .publication-title .main-title {
-      font-size: 4.2rem;
+      font-size: clamp(2.5rem, 4.8vw, 4.2rem);
       display: block;
       margin-bottom: 1.2rem;
       font-weight: 800;
@@ -221,30 +221,6 @@
         opacity: 1;
       }
     }
-    
-    .publication-title .subtitle-text {
-      font-size: 2.2rem;
-      display: block;
-      font-weight: 600;
-      color: #546e7a;
-      letter-spacing: -0.3px;
-      margin-top: 1rem;
-      margin-bottom: 1.8rem;
-      animation: subtitleFadeIn 1.2s ease-out;
-      animation-delay: 0.3s;
-      animation-fill-mode: both;
-    }
-    
-    @keyframes subtitleFadeIn {
-      0% {
-        opacity: 0;
-        transform: translateY(5px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
 
     /* 优化作者部分 */
     .publication-authors {
@@ -275,6 +251,13 @@
     .publication-authors a:hover {
       color: #2c3e50;
       text-decoration: underline;
+    }
+
+    @media screen and (max-width: 768px) {
+      .publication-title .main-title {
+        font-size: 2.2rem;
+        letter-spacing: -0.5px;
+      }
     }
 
     /* 优化摘要部分 */
@@ -364,64 +347,52 @@
       <div class="columns is-centered">
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title">
-            <span class="main-title">RobustDexGrasp</span><br>
-            <span class="subtitle-text">Robust Dexterous Grasping of General Objects</span>
+            <span class="main-title">HiFun: a Hierarchical Framework for Efficient Functional Dexterous Manipulation Learning</span>
           </h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="https://zdchan.github.io/">Hui Zhang</a><sup>1*</sup>,</span>
+              <a href="javascript:void(0)">Linyi Huang</a><sup>1</sup>,</span>
             <span class="author-block">
-              <a href="https://zijianwu1121.github.io/">Zijian Wu</a><sup>2*</sup>,</span>
+              <a href="javascript:void(0)">Guowei HUAI</a><sup>1</sup>,</span>
             <span class="author-block">
-              <a href="https://scholar.google.com/citations?user=boUC8sYAAAAJ&hl=en">Linyi Huang</a><sup>2</sup>,
+              <a href="javascript:void(0)">Weibin Liu</a><sup>1</sup>,
             </span>
             <span class="author-block">
-              <a href="https://ait.ethz.ch/people/sammyc">Sammy Christen</a><sup>1</sup>,
+              <a href="javascript:void(0)">Shulong Jiang</a><sup>1</sup>,
             </span>
             <span class="author-block">
-              <a href="https://facultyprofiles.hkust-gz.edu.cn/faculty-personal-page/SONG-Jie/jsongroas">Jie Song</a><sup>2, 3</sup>
+              <a href="javascript:void(0)">Ping Tan</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="javascript:void(0)">Hui Zhang</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://facultyprofiles.hkust-gz.edu.cn/faculty-personal-page/SONG-Jie/jsongroas">Jie Song</a><sup>1, 2</sup>
             </span>
           </div>
           <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>ETH Zürich, Switzerland</span>&emsp;
-            <!-- <span class="author-block"><sup>2</sup>inspire AG, Switzerland</span>&emsp; -->
-            <span class="author-block"><sup>2</sup>HKUST (Guangzhou), China</span>&emsp;
-
-          <!-- </div>
-          <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>3</sup>Disney Research, Switzerland</span>&emsp; -->
-            <span class="author-block"><sup>3</sup>HKUST, Hong Kong (China)</span>
-          </div>
-
-          <div class="is-size-5 equal-contribution">
-              *Equal Contribution
-          </div>
-          
-          <div class="has-text-centered">
-              <span class="acceptance-text"><b>Accepted by CoRL 2025 as Spotlight</b></span>
+            <span class="author-block"><sup>1</sup>HKUST (Guangzhou), China</span>&emsp;
+            <span class="author-block"><sup>2</sup>HKUST, Hong Kong (China)</span>&emsp;
+            <span class="author-block"><sup>3</sup>ETH Zurich, Switzerland</span>
           </div>
 
           <div class="column has-text-centered">
             <div class="publication-links">
-              <!-- PDF Link. -->
               <span class="link-block">
-                <a href="https://arxiv.org/abs/2504.05287"
-                   class="external-link button is-normal is-rounded is-dark">
+                <span class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
                   </span>
-                  <span>Paper</span>
-                </a>
+                  <span>Download PDF (TODO)</span>
+                </span>
               </span>
-              <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://github.com/zdchan/RobustDexGrasp"
-                   class="external-link button is-normal is-rounded is-dark">
+                <span class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
-                  <span>Code</span>
-                  </a>
+                  <span>Code (TODO)</span>
+                </span>
               </span>
             </div>
 
@@ -726,11 +697,11 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@inproceedings{zhang2025RobustDexGrasp,
-      title={{RobustDexGrasp}: Robust Dexterous Grasping of General Objects},
-      author={Zhang, Hui and Wu, Zijian and Huang, Linyi and Christen, Sammy and Song, Jie},
-      booktitle={Conference on Robot Learning (CoRL)},
-      year={2025}
+    <pre><code>@inproceedings{huang2026hifun,
+      title={{HiFun}: a Hierarchical Framework for Efficient Functional Dexterous Manipulation Learning},
+      author={Huang, Linyi and Hua, Guowei and Xu, Weibin and Wang, Shulong and Tan, Ping and Zhang, Hui and Song, Jie},
+      booktitle={Robotics: Science and Systems (RSS)},
+      year={2026}
     }
 </code></pre>
   </div>
