@@ -64,7 +64,7 @@ document.querySelectorAll('.managed-video').forEach(video => {
   });
   video.addEventListener('ended', () => {
     state.wantsPlayback = false;
-    frame.classList.remove('is-started');
+    if (!video.hasAttribute('data-hold-last-frame')) frame.classList.remove('is-started');
   });
   video.addEventListener('error', () => {
     state.wantsPlayback = false;
@@ -76,6 +76,24 @@ document.querySelectorAll('.managed-video').forEach(video => {
     if (source) source.removeAttribute('src');
   });
   visibilityObserver.observe(video);
+});
+
+// Comparison clips retain their own clocks; no speed matching is applied.
+document.querySelectorAll('.play-comparison').forEach(button => {
+  const videos = [...button.closest('.intervention-comparison').querySelectorAll('video')];
+  const updateLabel = () => { button.textContent = videos.some(video => !video.paused) ? 'Pause both' : 'Play both'; };
+  videos.forEach(video => { video.addEventListener('play', updateLabel); video.addEventListener('pause', updateLabel); });
+  button.addEventListener('click', () => {
+    const pause = videos.some(video => !video.paused);
+    for (const video of videos) {
+      const state = videoStates.get(video);
+      state.wantsPlayback = !pause;
+      state.environmentPause = false;
+      if (pause) video.pause();
+      else if (state.visible) attemptPlay(video, state);
+    }
+    updateLabel();
+  });
 });
 
 document.addEventListener('visibilitychange', () => {
@@ -96,7 +114,7 @@ reduceMotion.addEventListener('change', () => {
 
 const heroVideo = document.querySelector('#hero-video');
 heroVideo.addEventListener('timeupdate', () => {
-  const scene = heroVideo.currentTime < 7 ? 0 : heroVideo.currentTime < 13 ? 1 : 2;
+  const scene = heroVideo.currentTime < 7 ? 0 : heroVideo.currentTime < 18 ? 1 : 2;
   document.querySelector('#hero-scene').textContent = ['Contact, leverage, retrieve', 'Align the tool, actuate the trigger', 'Lose contact, adapt, recover'][scene];
   document.querySelector('#hero-index').textContent = `0${scene + 1} / 03`;
 });
@@ -148,7 +166,9 @@ document.querySelectorAll('[data-zoom]').forEach(button => button.addEventListen
   const image = document.querySelector('#enlarged-figure');
   image.src = button.dataset.zoom;
   image.alt = button.querySelector('img').alt;
-  document.querySelector('#figure-dialog-title').textContent = image.alt;
+  document.querySelector('#figure-dialog-title').textContent = button.getAttribute('aria-label').replace(/^Enlarge /, '');
+  dialog.classList.toggle('is-panorama', button.closest('.recovery-sequence') !== null);
+  dialog.querySelector('.dialog-image-scroll').scrollLeft = 0;
   dialog.showModal();
 }));
 document.querySelector('#close-figure').addEventListener('click', () => dialog.close());

@@ -23,11 +23,119 @@ def run(*args):
     subprocess.run([str(x) for x in args], check=True)
 
 
+def prepare_challenge_assets(workspace, assets, manifest, paper=None):
+    """Prepare author-selected videos, method modules and Appendix panels."""
+    for name, filename in [('challenge-skill', 'Unlock_pin_tool_Clean.mp4'),
+                           ('intervention-full-dof', 'Pin-Tool-HILSERL-Full-DoF.mp4'),
+                           ('intervention-hifun', 'ppt-1-xhand-dig-tool-7s_x264.mp4')]:
+        source = workspace / 'video/剪辑后' / filename
+        dest = assets / f'media/{name}.mp4'
+        run('ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-i', source,
+            '-vf', 'scale=1280:-2,fps=30,setsar=1', '-an', '-c:v', 'libx264',
+            '-preset', 'fast', '-crf', '24', '-pix_fmt', 'yuv420p', '-movflags', '+faststart',
+            '-threads', '4', dest)
+        run('ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-ss', '0.25', '-i', dest,
+            '-frames:v', '1', '-quality', '90', assets / f'posters/{name}.webp')
+        manifest.append({'asset': f'assets/media/{name}.mp4',
+                         'source': source.relative_to(workspace).as_posix(),
+                         'start_seconds': 0, 'duration_seconds': None,
+                         'timing': 'Full supplied clip; source timing preserved without additional acceleration.',
+                         'audio': 'removed for silent inline playback'})
+    # Render from the PDF so small method modules remain readable when enlarged.
+    paper = paper or assets / 'documents/paper.pdf'
+    with tempfile.TemporaryDirectory(prefix='hifun-method-modules-') as temporary:
+        raster = Path(temporary) / 'method-page'
+        run('pdftoppm', '-f', '3', '-l', '3', '-scale-to', '7200', '-singlefile', '-png', paper, raster)
+        page = Image.open(str(raster) + '.png')
+        framework_box = (0.162, 0.507, 0.840, 0.676)
+        framework = page.crop(tuple(round(v * (page.width if k % 2 == 0 else page.height)) for k, v in enumerate(framework_box)))
+        for name, box in [('method-critic', (355, 238, 493, 382)),
+                          ('method-iaw', (495, 238, 728, 382))]:
+            normalized = tuple(v / (1257 if k % 2 == 0 else 405) for k,v in enumerate(box))
+            module = framework.crop(tuple(round(v * (framework.width if k % 2 == 0 else framework.height)) for k,v in enumerate(normalized)))
+            module.save(assets / f'figures/{name}.webp', lossless=True)
+            manifest.append({'asset': f'assets/figures/{name}.webp', 'source': 'paper.pdf',
+                             'page': 3, 'figure': '2', 'page_render_scale_to': 7200,
+                             'framework_normalized_crop': framework_box,
+                             'module_normalized_crop': normalized,
+                             'processing': 'Original method module; labels and formulas preserved.'})
+    original = Image.open(assets / 'figures/coordination-analysis.webp')
+    # Boundaries lie in the whitespace between panels; keep every axis and label.
+    for name, left, right in [('critic-error', 0, 245), ('critic-far-activation', 245, 495),
+                              ('iaw-weights', 495, 850), ('iaw-value', 850, 1206)]:
+        box = (round(left / 1206 * original.width), 0,
+               round(right / 1206 * original.width), original.height)
+        original.crop(box).save(assets / f'figures/{name}.webp', lossless=True)
+        manifest.append({'asset': f'assets/figures/{name}.webp',
+                         'source': 'assets/figures/coordination-analysis.webp',
+                         'document': 'Appendix.pdf', 'page': 6, 'figure': '4',
+                         'pixel_crop': box, 'source_dimensions': list(original.size),
+                         'processing': 'Lossless crop; original axes, labels and values retained.'})
+
+
+def prepare_evaluation_assets(workspace, assets, manifest, thin_shaft_video=None):
+    """Compose three vial placements and preserve the complete long-horizon demo."""
+    # 94 frames per panel; final source frames show alignment and thumb actuation.
+    segments = [(0, 94 / 30), (22, 94 / 30), (42.2, 94 / 30)]
+    with tempfile.TemporaryDirectory(prefix='hifun-pipette-') as temporary:
+        source = Path(temporary) / 'pipette-original.mp4'
+        with zipfile.ZipFile(workspace / 'PPT/CORL/Video_0530.pptx') as archive:
+            with archive.open('ppt/media/media17.mp4') as src, source.open('wb') as dst:
+                shutil.copyfileobj(src, dst)
+        filters = ['[0:v]split=3[p0][p1][p2]']
+        for i, (start, duration) in enumerate(segments):
+            filters.append(f'[p{i}]trim=start={start}:duration={duration},setpts=PTS-STARTPTS,'
+                           f'scale=426:720:force_original_aspect_ratio=decrease,'
+                           f'pad=426:720:(ow-iw)/2:(oh-ih)/2:color=0x202622,'
+                           f'fps=30,setsar=1[v{i}]')
+        filters.append('[v0][v1][v2]hstack=inputs=3:shortest=1,'
+                       'pad=1280:720:1:0:color=0x202622[out]')
+        run('ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-i', source,
+            '-filter_complex', ';'.join(filters), '-map', '[out]', '-an',
+            '-c:v', 'libx264', '-preset', 'fast', '-crf', '22', '-pix_fmt', 'yuv420p',
+            '-movflags', '+faststart', '-threads', '4', assets / 'media/pipette-positions.mp4')
+    manifest.append({'asset': 'assets/media/pipette-positions.mp4',
+                     'source': 'PPT/CORL/Video_0530.pptx:ppt/media/media17.mp4',
+                     'segments_left_to_right': [{'start_seconds': start, 'duration_seconds': duration}
+                                                for start, duration in segments],
+                     'final_source_frames_seconds': [3.1, 25.1, 45.3],
+                     'duration_seconds': 94 / 30, 'layout': 'Three complete portrait frames side by side in 1280x720; no crop.',
+                     'timing': 'Source 5x playback preserved; simultaneous excerpts end on thumb actuation, with no further acceleration.',
+                     'audio': 'removed for silent inline playback'})
+    source = workspace / 'video/剪辑后/Cross-hand deployment-unlock key-1.3X.mp4'
+    run('ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-i', source,
+        '-vf', 'scale=1280:-2,fps=30,setsar=1', '-an', '-c:v', 'libx264',
+        '-preset', 'fast', '-crf', '23', '-pix_fmt', 'yuv420p', '-movflags', '+faststart',
+        '-threads', '4', assets / 'media/long-horizon.mp4')
+    manifest.append({'asset': 'assets/media/long-horizon.mp4',
+                     'source': source.relative_to(workspace).as_posix(),
+                     'start_seconds': 0, 'duration_seconds': None,
+                     'timing': 'Full supplied clip; source 1.3x playback preserved without further acceleration.',
+                     'audio': 'removed for silent inline playback'})
+    source = thin_shaft_video or Path('E:/【RSS Video】/RSS Rebuttal/Long-horizon Dig-Tool Demo/0319绑线/长程绑线3.19-1.5X.mp4')
+    run('ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-i', source,
+        '-vf', 'scale=1280:-2,fps=30,setsar=1', '-an', '-c:v', 'libx264',
+        '-preset', 'fast', '-crf', '23', '-pix_fmt', 'yuv420p', '-movflags', '+faststart',
+        '-threads', '4', assets / 'media/thin-shaft.mp4')
+    manifest[:] = [entry for entry in manifest if entry['asset'] != 'assets/media/thin-shaft.mp4']
+    manifest.append({'asset': 'assets/media/thin-shaft.mp4', 'source': source.name,
+                     'source_collection': 'RSS Rebuttal/Long-horizon Dig-Tool Demo/0319绑线',
+                     'start_seconds': 0, 'duration_seconds': None,
+                     'timing': 'Full supplied clip; source 1.5x playback and inset view preserved.',
+                     'audio': 'removed for silent inline playback'})
+    for name, time in [('pipette-positions', 3.1), ('long-horizon', 0.25), ('thin-shaft', 0.25)]:
+        run('ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-ss', time,
+            '-i', assets / f'media/{name}.mp4', '-frames:v', '1', '-quality', '90',
+            assets / f'posters/{name}.webp')
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--workspace', type=Path, required=True)
     parser.add_argument('--paper', type=Path, required=True)
     parser.add_argument('--rebuttal', type=Path, required=True)
+    parser.add_argument('--recovery-image', type=Path, required=True)
+    parser.add_argument('--thin-shaft-video', type=Path, help='Author-supplied RSS retrieval demo; defaults to the original E: drive location.')
     args = parser.parse_args()
     assets = ROOT / 'assets'
     for sub in ['media', 'posters', 'figures', 'documents', 'fonts']:
@@ -68,8 +176,8 @@ def main():
         encode('shaft-disturbance', tmp / 'media23.mp4', provenance='PPT/CORL/Video_0530.pptx:ppt/media/media23.mp4')
         encode('supplementary', supp, width=1280, note='Playback multipliers are burned into the submitted video.', keep_audio=True)
 
-        # A silent 20-second teaser; no speed changes or generative robot imagery.
-        sources = [(tmp / 'media2.mp4', 0, 7), (tmp / 'media19.mp4', 5, 6), (supp, 27, 7)]
+        # A silent 25-second teaser; no speed changes or generative robot imagery.
+        sources = [(tmp / 'media2.mp4', 0, 7), (edited / 'Powerdrill_Actuation_AND_Bit_removal.mp4', 0, 11), (supp, 27, 7)]
         chunks = []
         for i, (source, start, seconds) in enumerate(sources):
             chunk = tmp / f'hero-{i}.mp4'
@@ -83,7 +191,7 @@ def main():
             '-c', 'copy', '-movflags', '+faststart', assets / 'media/hero.mp4')
         run('ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-ss', '2', '-i', assets / 'media/hero.mp4', '-frames:v', '1', tmp / 'hero.png')
         Image.open(tmp / 'hero.png').save(assets / 'posters/hero.webp', quality=90)
-        manifest.append({'asset': 'assets/media/hero.mp4', 'segments': [{'source': 'PPT media2', 'start': 0, 'duration': 7}, {'source': 'PPT media19', 'start': 5, 'duration': 6}, {'source': 'Submission/Supplementary Video.mp4', 'start': 27, 'duration': 7}], 'timing': 'No additional acceleration; source edits retained.'})
+        manifest.append({'asset': 'assets/media/hero.mp4', 'segments': [{'source': 'PPT media2', 'start': 0, 'duration': 7}, {'source': 'video/剪辑后/Powerdrill_Actuation_AND_Bit_removal.mp4', 'start': 0, 'duration': 11}, {'source': 'Submission/Supplementary Video.mp4', 'start': 27, 'duration': 7}], 'timing': 'No additional acceleration; source edits retained.'})
 
         def crop_pdf(pdf, page, name, box):
             dest = tmp / name
@@ -95,6 +203,11 @@ def main():
         crop_pdf(args.paper, 3, 'method', (0.162, 0.507, 0.840, 0.676))
         crop_pdf(args.workspace / 'Submission/Appendix.pdf', 5, 'training-curves', (0.17, 0.088, 0.83, 0.55))
         crop_pdf(args.workspace / 'Submission/Appendix.pdf', 6, 'coordination-analysis', (0.18, 0.274, 0.83, 0.445))
+
+    prepare_challenge_assets(args.workspace, assets, manifest, args.paper)
+    prepare_evaluation_assets(args.workspace, assets, manifest, args.thin_shaft_video)
+    shutil.copy2(args.recovery_image, assets / 'figures/key-recovery-sequence.png')
+    manifest.append({'asset': 'assets/figures/key-recovery-sequence.png', 'source': args.recovery_image.name, 'sha256': hashlib.sha256(args.recovery_image.read_bytes()).hexdigest(), 'processing': 'Original PNG preserved without cropping or resizing.'})
 
     for source, name in [(args.paper, 'paper.pdf'), (args.workspace / 'Submission/Appendix.pdf', 'appendix.pdf'), (args.rebuttal, 'additional-evidence.pdf')]:
         shutil.copy2(source, assets / 'documents' / name)

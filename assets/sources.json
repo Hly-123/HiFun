@@ -40,14 +40,6 @@
     "audio": "removed for silent inline playback"
   },
   {
-    "asset": "assets/media/thin-shaft.mp4",
-    "source": "PPT/CORL/Video_0530.pptx:ppt/media/media21.mp4",
-    "start_seconds": 0,
-    "duration_seconds": null,
-    "timing": "Source timing preserved; original recording multiplier not documented.",
-    "audio": "removed for silent inline playback"
-  },
-  {
     "asset": "assets/media/contact-recovery.mp4",
     "source": "Submission\\Supplementary Video.mp4",
     "start_seconds": 27,
@@ -96,9 +88,9 @@
         "duration": 7
       },
       {
-        "source": "PPT media19",
-        "start": 5,
-        "duration": 6
+        "source": "video/剪辑后/Powerdrill_Actuation_AND_Bit_removal.mp4",
+        "start": 0,
+        "duration": 11
       },
       {
         "source": "Submission/Supplementary Video.mp4",
@@ -142,6 +134,12 @@
     ]
   },
   {
+    "asset": "assets/figures/key-recovery-sequence.png",
+    "source": "key-finger-level adaptation-V2.png",
+    "sha256": "6f8f4f8616bc7a09a55f1a8be12d82852e4dc1f4783e155ff143011d2815bf14",
+    "processing": "Original PNG preserved without cropping or resizing."
+  },
+  {
     "asset": "assets/documents/paper.pdf",
     "source": "HiFun - a Hierarchical Framework for Efficient Functional Dexterous Manipulation Learning.pdf",
     "sha256": "fdc4c7a1c5f9888436650053bcb08aab7f8ccb98d8ba749cc07d3b8f16de43a1"
@@ -155,5 +153,185 @@
     "asset": "assets/documents/additional-evidence.pdf",
     "source": "Rebuttal_for_CoRL_Submission_597__HiFun.pdf",
     "sha256": "185ade1a7fc5860d3ab36f84a900abd70dd4d5d767fc00f0dbf12d0ea6742328"
+  },
+  {
+    "asset": "assets/media/challenge-skill.mp4",
+    "source": "video/剪辑后/Unlock_pin_tool_Clean.mp4",
+    "start_seconds": 0,
+    "duration_seconds": null,
+    "timing": "Full supplied clip; source timing preserved without additional acceleration.",
+    "audio": "removed for silent inline playback"
+  },
+  {
+    "asset": "assets/media/intervention-full-dof.mp4",
+    "source": "video/剪辑后/Pin-Tool-HILSERL-Full-DoF.mp4",
+    "start_seconds": 0,
+    "duration_seconds": null,
+    "timing": "Full supplied clip; source timing preserved without additional acceleration.",
+    "audio": "removed for silent inline playback"
+  },
+  {
+    "asset": "assets/figures/method-critic.webp",
+    "source": "paper.pdf",
+    "page": 3,
+    "figure": "2",
+    "page_render_scale_to": 7200,
+    "framework_normalized_crop": [
+      0.162,
+      0.507,
+      0.84,
+      0.676
+    ],
+    "module_normalized_crop": [
+      0.2824184566428003,
+      0.5876543209876544,
+      0.3922036595067621,
+      0.9432098765432099
+    ],
+    "processing": "Original method module; labels and formulas preserved."
+  },
+  {
+    "asset": "assets/figures/method-iaw.webp",
+    "source": "paper.pdf",
+    "page": 3,
+    "figure": "2",
+    "page_render_scale_to": 7200,
+    "framework_normalized_crop": [
+      0.162,
+      0.507,
+      0.84,
+      0.676
+    ],
+    "module_normalized_crop": [
+      0.3937947494033413,
+      0.5876543209876544,
+      0.5791567223548131,
+      0.9432098765432099
+    ],
+    "processing": "Original method module; labels and formulas preserved."
+  },
+  {
+    "asset": "assets/figures/critic-error.webp",
+    "source": "assets/figures/coordination-analysis.webp",
+    "document": "Appendix.pdf",
+    "page": 6,
+    "figure": "4",
+    "pixel_crop": [
+      0,
+      0,
+      245,
+      410
+    ],
+    "source_dimensions": [
+      1206,
+      410
+    ],
+    "processing": "Lossless crop; original axes, labels and values retained."
+  },
+  {
+    "asset": "assets/figures/critic-far-activation.webp",
+    "source": "assets/figures/coordination-analysis.webp",
+    "document": "Appendix.pdf",
+    "page": 6,
+    "figure": "4",
+    "pixel_crop": [
+      245,
+      0,
+      495,
+      410
+    ],
+    "source_dimensions": [
+      1206,
+      410
+    ],
+    "processing": "Lossless crop; original axes, labels and values retained."
+  },
+  {
+    "asset": "assets/figures/iaw-weights.webp",
+    "source": "assets/figures/coordination-analysis.webp",
+    "document": "Appendix.pdf",
+    "page": 6,
+    "figure": "4",
+    "pixel_crop": [
+      495,
+      0,
+      850,
+      410
+    ],
+    "source_dimensions": [
+      1206,
+      410
+    ],
+    "processing": "Lossless crop; original axes, labels and values retained."
+  },
+  {
+    "asset": "assets/figures/iaw-value.webp",
+    "source": "assets/figures/coordination-analysis.webp",
+    "document": "Appendix.pdf",
+    "page": 6,
+    "figure": "4",
+    "pixel_crop": [
+      850,
+      0,
+      1206,
+      410
+    ],
+    "source_dimensions": [
+      1206,
+      410
+    ],
+    "processing": "Lossless crop; original axes, labels and values retained."
+  },
+  {
+    "asset": "assets/media/intervention-hifun.mp4",
+    "source": "video/剪辑后/ppt-1-xhand-dig-tool-7s_x264.mp4",
+    "start_seconds": 0,
+    "duration_seconds": null,
+    "timing": "Full supplied clip; source timing preserved without additional acceleration.",
+    "audio": "removed for silent inline playback"
+  },
+  {
+    "asset": "assets/media/pipette-positions.mp4",
+    "source": "PPT/CORL/Video_0530.pptx:ppt/media/media17.mp4",
+    "segments_left_to_right": [
+      {
+        "start_seconds": 0,
+        "duration_seconds": 3.1333333333333333
+      },
+      {
+        "start_seconds": 22,
+        "duration_seconds": 3.1333333333333333
+      },
+      {
+        "start_seconds": 42.2,
+        "duration_seconds": 3.1333333333333333
+      }
+    ],
+    "final_source_frames_seconds": [
+      3.1,
+      25.1,
+      45.3
+    ],
+    "duration_seconds": 3.1333333333333333,
+    "layout": "Three complete portrait frames side by side in 1280x720; no crop.",
+    "timing": "Source 5x playback preserved; simultaneous excerpts end on thumb actuation, with no further acceleration.",
+    "audio": "removed for silent inline playback"
+  },
+  {
+    "asset": "assets/media/long-horizon.mp4",
+    "source": "video/剪辑后/Cross-hand deployment-unlock key-1.3X.mp4",
+    "start_seconds": 0,
+    "duration_seconds": null,
+    "timing": "Full supplied clip; source 1.3x playback preserved without further acceleration.",
+    "audio": "removed for silent inline playback"
+  },
+  {
+    "asset": "assets/media/thin-shaft.mp4",
+    "source": "长程绑线3.19-1.5X.mp4",
+    "source_collection": "RSS Rebuttal/Long-horizon Dig-Tool Demo/0319绑线",
+    "start_seconds": 0,
+    "duration_seconds": null,
+    "timing": "Full supplied clip; source 1.5x playback and inset view preserved.",
+    "audio": "removed for silent inline playback"
   }
 ]
