@@ -1,0 +1,159 @@
+[
+  {
+    "asset": "assets/media/thin-handle.mp4",
+    "source": "PPT/CORL/Video_0530.pptx:ppt/media/media2.mp4",
+    "start_seconds": 0,
+    "duration_seconds": null,
+    "timing": "Source timing preserved; original recording multiplier not documented.",
+    "audio": "removed for silent inline playback"
+  },
+  {
+    "asset": "assets/media/pipette.mp4",
+    "source": "PPT/CORL/Video_0530.pptx:ppt/media/media17.mp4",
+    "start_seconds": 0,
+    "duration_seconds": null,
+    "timing": "5x, as identified by slide movie name pipette-eval-5X-20.",
+    "audio": "removed for silent inline playback"
+  },
+  {
+    "asset": "assets/media/bit-removal.mp4",
+    "source": "PPT/CORL/Video_0530.pptx:ppt/media/media18.mp4",
+    "start_seconds": 0,
+    "duration_seconds": null,
+    "timing": "Source timing preserved; original recording multiplier not documented.",
+    "audio": "removed for silent inline playback"
+  },
+  {
+    "asset": "assets/media/power-drill.mp4",
+    "source": "PPT/CORL/Video_0530.pptx:ppt/media/media19.mp4",
+    "start_seconds": 0,
+    "duration_seconds": null,
+    "timing": "Source timing preserved; original recording multiplier not documented.",
+    "audio": "removed for silent inline playback"
+  },
+  {
+    "asset": "assets/media/angle-spreader.mp4",
+    "source": "PPT/CORL/Video_0530.pptx:ppt/media/media20.mp4",
+    "start_seconds": 0,
+    "duration_seconds": null,
+    "timing": "Source timing preserved; original recording multiplier not documented.",
+    "audio": "removed for silent inline playback"
+  },
+  {
+    "asset": "assets/media/thin-shaft.mp4",
+    "source": "PPT/CORL/Video_0530.pptx:ppt/media/media21.mp4",
+    "start_seconds": 0,
+    "duration_seconds": null,
+    "timing": "Source timing preserved; original recording multiplier not documented.",
+    "audio": "removed for silent inline playback"
+  },
+  {
+    "asset": "assets/media/contact-recovery.mp4",
+    "source": "Submission\\Supplementary Video.mp4",
+    "start_seconds": 27,
+    "duration_seconds": 7,
+    "timing": "1x, labeled in the submitted supplementary video.",
+    "audio": "removed for silent inline playback"
+  },
+  {
+    "asset": "assets/media/size-transfer.mp4",
+    "source": "video\\剪辑后\\Hand-Skill_Generalization-2X.mp4",
+    "start_seconds": 0,
+    "duration_seconds": null,
+    "timing": "2x, labeled in source filename.",
+    "audio": "removed for silent inline playback"
+  },
+  {
+    "asset": "assets/media/spreader-disturbance.mp4",
+    "source": "PPT/CORL/Video_0530.pptx:ppt/media/media24.mp4",
+    "start_seconds": 0,
+    "duration_seconds": null,
+    "timing": "Source timing preserved; original recording multiplier not documented.",
+    "audio": "removed for silent inline playback"
+  },
+  {
+    "asset": "assets/media/shaft-disturbance.mp4",
+    "source": "PPT/CORL/Video_0530.pptx:ppt/media/media23.mp4",
+    "start_seconds": 0,
+    "duration_seconds": null,
+    "timing": "Source timing preserved; original recording multiplier not documented.",
+    "audio": "removed for silent inline playback"
+  },
+  {
+    "asset": "assets/media/supplementary.mp4",
+    "source": "Submission\\Supplementary Video.mp4",
+    "start_seconds": 0,
+    "duration_seconds": null,
+    "timing": "Playback multipliers are burned into the submitted video.",
+    "audio": "preserved when present"
+  },
+  {
+    "asset": "assets/media/hero.mp4",
+    "segments": [
+      {
+        "source": "PPT media2",
+        "start": 0,
+        "duration": 7
+      },
+      {
+        "source": "PPT media19",
+        "start": 5,
+        "duration": 6
+      },
+      {
+        "source": "Submission/Supplementary Video.mp4",
+        "start": 27,
+        "duration": 7
+      }
+    ],
+    "timing": "No additional acceleration; source edits retained."
+  },
+  {
+    "asset": "assets/figures/method.webp",
+    "source": "HiFun - a Hierarchical Framework for Efficient Functional Dexterous Manipulation Learning.pdf",
+    "page": 3,
+    "normalized_crop": [
+      0.162,
+      0.507,
+      0.84,
+      0.676
+    ]
+  },
+  {
+    "asset": "assets/figures/training-curves.webp",
+    "source": "Appendix.pdf",
+    "page": 5,
+    "normalized_crop": [
+      0.17,
+      0.088,
+      0.83,
+      0.55
+    ]
+  },
+  {
+    "asset": "assets/figures/coordination-analysis.webp",
+    "source": "Appendix.pdf",
+    "page": 6,
+    "normalized_crop": [
+      0.18,
+      0.274,
+      0.83,
+      0.445
+    ]
+  },
+  {
+    "asset": "assets/documents/paper.pdf",
+    "source": "HiFun - a Hierarchical Framework for Efficient Functional Dexterous Manipulation Learning.pdf",
+    "sha256": "fdc4c7a1c5f9888436650053bcb08aab7f8ccb98d8ba749cc07d3b8f16de43a1"
+  },
+  {
+    "asset": "assets/documents/appendix.pdf",
+    "source": "Appendix.pdf",
+    "sha256": "80be41a9b518fd18529efc22eb9fb815b1933696ef865c9bdace3c9aaf6fb89c"
+  },
+  {
+    "asset": "assets/documents/additional-evidence.pdf",
+    "source": "Rebuttal_for_CoRL_Submission_597__HiFun.pdf",
+    "sha256": "185ade1a7fc5860d3ab36f84a900abd70dd4d5d767fc00f0dbf12d0ea6742328"
+  }
+]
