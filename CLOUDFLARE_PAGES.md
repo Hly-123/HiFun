@@ -1,5 +1,7 @@
 # Publish HiFun with a private GitHub repository
 
+Production URL: **https://hifun-cfu.pages.dev/**. Cloudflare project: `hifun`.
+
 Use Cloudflare Pages **Git integration** and authorize only `Hly-123/HiFun` in the Cloudflare GitHub app. Keep the GitHub repository private.
 
 In Cloudflare: **Workers & Pages → Create application → Pages → Connect to Git**.
@@ -7,14 +9,14 @@ In Cloudflare: **Workers & Pages → Create application → Pages → Connect to
 | Setting | Value |
 | --- | --- |
 | GitHub repository | `Hly-123/HiFun` |
-| Project name | `hifun` if available; otherwise `hifun-hly123` |
+| Project name | `hifun` |
 | Production branch | `master` |
 | Framework preset | None |
 | Build command | `python3 scripts/build_public_site.py` |
 | Build output directory | `dist` |
 | Root directory | Leave blank (repository root) |
 
-Select **Save and Deploy**. Cloudflare supplies the public `*.pages.dev` URL when deployment succeeds. Future pushes to `master` trigger production builds automatically. This repository does not need deployment tokens or GitHub Actions secrets with Git integration.
+Pushes to `master` trigger production builds automatically through the connected Cloudflare GitHub app. Preview branch deployments and PR comments are disabled. This repository does not need deployment tokens or GitHub Actions secrets with Git integration.
 
 ## What is published
 

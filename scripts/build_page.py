@@ -64,7 +64,9 @@ html = '''<!doctype html><html lang="en"><head>
 <meta name="theme-color" content="#f6f4ef"><meta property="og:type" content="website">
 <meta property="og:title" content="HiFun: Learning contact skills and when to use them">
 <meta property="og:description" content="Contact-aware hand skills. Learned coordination. 295 successful evaluation trials out of 300 across six real-world tasks.">
-<meta property="og:image" content="assets/posters/hero.webp">
+<link rel="canonical" href="https://hifun-cfu.pages.dev/">
+<meta property="og:url" content="https://hifun-cfu.pages.dev/">
+<meta property="og:image" content="https://hifun-cfu.pages.dev/assets/posters/hero.webp">
 <link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/fonts/fonts.css"><link rel="stylesheet" href="styles.css"><script src="script.js" defer></script>
 </head><body><a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><nav class="nav container" aria-label="Main navigation"><a class="brand" href="#top" aria-label="HiFun home"><span class="brand-symbol" aria-hidden="true"><i></i><i></i></span>HiFun</a><button class="menu-toggle" aria-expanded="false" aria-controls="nav-links">Menu <span aria-hidden="true">☰</span></button><div class="nav-links" id="nav-links"><a href="#overview">Overview</a><a href="#challenges">Challenges</a><a href="#demos">Demos</a><a href="#insights">Evidence</a><a href="#method">Method</a><a href="#results">Results</a><a href="#resources">Resources</a></div></nav><div class="progress-track" aria-hidden="true"><span id="progress"></span></div></header>
