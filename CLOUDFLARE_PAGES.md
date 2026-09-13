@@ -1,0 +1,33 @@
+# Publish HiFun with a private GitHub repository
+
+Use Cloudflare Pages **Git integration** and authorize only `Hly-123/HiFun` in the Cloudflare GitHub app. Keep the GitHub repository private.
+
+In Cloudflare: **Workers & Pages → Create application → Pages → Connect to Git**.
+
+| Setting | Value |
+| --- | --- |
+| GitHub repository | `Hly-123/HiFun` |
+| Project name | `hifun` if available; otherwise `hifun-hly123` |
+| Production branch | `master` |
+| Framework preset | None |
+| Build command | `python3 scripts/build_public_site.py` |
+| Build output directory | `dist` |
+| Root directory | Leave blank (repository root) |
+
+Select **Save and Deploy**. Cloudflare supplies the public `*.pages.dev` URL when deployment succeeds. Future pushes to `master` trigger production builds automatically. This repository does not need deployment tokens or GitHub Actions secrets with Git integration.
+
+## What is published
+
+The build regenerates `index.html` and follows its links, lazy video sources, posters, zoom targets and CSS font references. It copies only the site files and referenced assets into `dist`, with the font licenses and a 404 page. The generator scripts, source manifest, README, original `videos` directory, unused media and Git history are not included. The build rejects missing resources, references outside the repository and files above Cloudflare Pages' 25 MiB per-file limit.
+
+Build locally with `python scripts/build_public_site.py`. The build uses Python's standard library and the committed web assets; it does not require FFmpeg, original recordings or access to the author's local drives. `dist` is generated and ignored by Git.
+
+## Verification after deployment
+
+- Open the production URL while signed out of GitHub.
+- Check Overview video playback and seeking, Challenge figure zoom and both XHand task videos.
+- Let the pipette composite finish: it should retain its final frame without automatically replaying.
+- Open the Paper/Appendix links and test the mobile navigation.
+- Check the Cloudflare deployment's commit matches the intended `master` commit.
+
+Official documentation: [Git integration](https://developers.cloudflare.com/pages/get-started/git-integration/) · [Static HTML](https://developers.cloudflare.com/pages/framework-guides/deploy-anything/) · [Limits](https://developers.cloudflare.com/pages/platform/limits/)

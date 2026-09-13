@@ -2,3 +2,5 @@ __pycache__/
 *.pyc
 .preview/
 node_modules/
+dist/
+.wrangler/
