@@ -13,9 +13,17 @@ const visibilityObserver = new IntersectionObserver(entries => {
   }
 }, {threshold: [0, 0.15, 0.5]});
 
-function loadVideo(video) {
+async function loadVideo(video) {
   const source = video.querySelector('source[data-src]');
   if (source && !source.hasAttribute('src')) {
+    // Pages serves full MP4 responses without byte ranges. A local Blob gives
+    // native video controls a seekable source, while keeping the site static.
+    if (location.hostname.endsWith('.pages.dev')) {
+      const response = await fetch(source.dataset.src);
+      if (!response.ok) throw new Error('Video download failed');
+      const blob = await response.blob();
+      video.src = URL.createObjectURL(blob);
+    }
     source.src = source.dataset.src;
     video.load();
   }
@@ -23,9 +31,14 @@ function loadVideo(video) {
 
 async function attemptPlay(video, state) {
   if (state.pending || !video.paused) return;
-  loadVideo(video);
   state.pending = true;
+  const button = state.frame.querySelector('.video-start');
+  const label = button.innerHTML;
+  button.textContent = 'Loading video…';
+  button.disabled = true;
   try {
+    await loadVideo(video);
+    if (!state.visible || document.hidden || !state.wantsPlayback) return;
     await video.play();
     if (!state.visible || document.hidden) pauseOffscreen(video, state);
   } catch (error) {
@@ -33,6 +46,8 @@ async function attemptPlay(video, state) {
     if (error.name !== 'AbortError') state.frame.classList.remove('is-started');
   } finally {
     state.pending = false;
+    button.disabled = false;
+    button.innerHTML = label;
   }
 }
 

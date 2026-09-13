@@ -76,6 +76,8 @@ fs.mkdirSync(output, { recursive: true });
     await page.locator('#hero-video').evaluate(v => v.pause());
     for (const [time, caption] of [[6.9,'Contact, leverage, retrieve'],[7,'Align the tool, actuate the trigger'],[17.9,'Align the tool, actuate the trigger'],[18,'Lose contact, adapt, recover']]) {
       await page.locator('#hero-video').evaluate(async (v, time) => {v.currentTime = time; await new Promise(resolve => v.addEventListener('seeked',resolve,{once:true}));}, time);
+      // Remote media can deliver timeupdate after seeked; wait for the rendered caption.
+      await page.waitForFunction(caption => document.querySelector('#hero-scene').textContent === caption, caption);
       assert.equal(await page.locator('#hero-scene').innerText(), caption);
     }
     await page.locator('[data-kind="skill"] video').scrollIntoViewIfNeeded();
@@ -123,7 +125,7 @@ fs.mkdirSync(output, { recursive: true });
 
     // Validate every local URL, including assets hidden in collapsed sections.
     const links = await page.evaluate(() => [...document.querySelectorAll('[href],[src],[data-src],[poster],[data-zoom]')].flatMap(el => ['href','src','data-src','poster','data-zoom'].map(a => el.getAttribute(a)).filter(Boolean)));
-    const relative = [...new Set(links.filter(url => !/^(https?:|data:|#)/.test(url)))];
+    const relative = [...new Set(links.filter(url => !/^(https?:|data:|blob:|#)/.test(url)))];
     for (const url of relative) {
       const response = await context.request.head(`${origin}/${url.split('#')[0]}`);
       assert.equal(response.status(), 200, `Local resource: ${url}`);

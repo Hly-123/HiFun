@@ -24,6 +24,8 @@ The build regenerates `index.html` and follows its links, lazy video sources, po
 
 Build locally with `python scripts/build_public_site.py`. The build uses Python's standard library and the committed web assets; it does not require FFmpeg, original recordings or access to the author's local drives. `dist` is generated and ignored by Git.
 
+On `*.pages.dev`, a requested video is downloaded into a browser Blob before playback so native seeking works despite Pages' lack of HTTP byte-range responses. The play button shows loading progress as a loading state; initial entry still downloads no video bodies. This keeps hosting entirely static with no Functions, paid storage or streaming service. Video startup depends on downloading the selected clip (the overview is about 21 MB).
+
 ## Verification after deployment
 
 - Open the production URL while signed out of GitHub.
