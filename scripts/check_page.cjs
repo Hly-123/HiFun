@@ -8,7 +8,7 @@ const output = path.resolve(__dirname, '../.preview/task-challenges-v3');
 fs.mkdirSync(output, { recursive: true });
 
 (async () => {
-  const browser = await chromium.launch({ channel: process.env.HIFUN_BROWSER || 'msedge', headless: true });
+  const browser = await chromium.launch({ channel: process.env.HIFUN_BROWSER || 'msedge', headless: true, args:['--autoplay-policy=no-user-gesture-required'] });
   const errors = [];
   try {
     const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
@@ -16,7 +16,7 @@ fs.mkdirSync(output, { recursive: true });
     page.on('pageerror', error => errors.push(error.message));
     const failed = [];
     page.on('response', response => { if (response.status() >= 400) failed.push(`${response.status()} ${response.url()}`); });
-    await page.goto(origin, { waitUntil: 'networkidle' });
+    await page.goto(origin, { waitUntil: 'domcontentloaded' });
     await page.evaluate(() => document.fonts.ready);
     assert.match(await page.locator('h1').innerText(), /HiFun/);
     assert.equal(await page.locator('.task').count(), 6);
@@ -28,6 +28,8 @@ fs.mkdirSync(output, { recursive: true });
     assert.deepEqual(await page.locator('#nav-links a').allTextContents(), ['Overview','Task Challenges','Method','Results','Insights','Citation']);
     assert.deepEqual(await page.locator('main > section').evaluateAll(els => els.map(el => el.id)), ['top','overview','abstract','demos','method','results','challenges','highlights','citation-section']);
     assert.equal(await page.locator('#full-video').count(), 1);
+    assert.equal(await page.locator('#full-video video').evaluate(v=>v.muted),false);
+    assert.equal(await page.locator('#highlights .film-footnote').count(),0);
     assert.equal(await page.locator('video[controls]').count(),1);
     assert.equal(await page.locator('#full-video video').evaluate(v=>v.controls&&v.hasAttribute('data-autoplay')),true);
     assert.equal(await page.locator('video[data-autoplay]').count(),await page.locator('video').count());
@@ -35,6 +37,7 @@ fs.mkdirSync(output, { recursive: true });
 
     assert.equal(await page.locator('#overview h2').innerText(), 'Overview');
     assert.equal(await page.locator('#overview .eyebrow').count(),0);
+    await page.waitForFunction(()=>!document.querySelector('#full-video .video-start').disabled);
     assert.equal((await page.locator('#full-video .video-start').innerText()).replace('▶','').trim(),'Play video');
     assert.equal(await page.locator('#full-video .video-start').getAttribute('aria-label'),'Play overview video');
     assert.equal(await page.locator('.resource-buttons a[href="#full-video"]').count(),0);
@@ -43,7 +46,7 @@ fs.mkdirSync(output, { recursive: true });
     assert.deepEqual(await abstractStyles(page), [['justify','left','auto'],['justify','left','auto']]);
     assert.equal(await page.locator('#abstract .source-note').count(),0);
     assert.doesNotMatch(await page.locator('#abstract').innerText(),/Abstract from the supplied manuscript/);
-    assert.equal(await page.locator('#demos h2').innerText(),'What makes functional dexterity challenging?');
+    assert.equal(await page.locator('#demos h2').innerText(),'Challenges in functional dexterity');
     assert.match(await page.locator('#demos .section-heading').innerText(),/precise contact, coordinated arm–hand motion/);
     assert.equal(await page.locator('#demos h2 br').count(),0);
     assert.equal(await page.locator('#demos h2').evaluate(el=>el.getBoundingClientRect().height <= parseFloat(getComputedStyle(el).lineHeight)+1),true,'Desktop task title fits one line');
@@ -205,13 +208,13 @@ fs.mkdirSync(output, { recursive: true });
     const mobile = await context.newPage();
     await mobile.setViewportSize({ width: 390, height: 844 });
     mobile.on('pageerror', e => errors.push(e.message));
-    await mobile.goto(origin, {waitUntil:'networkidle'});
+    await mobile.goto(origin, {waitUntil:'domcontentloaded'});
     await mobile.evaluate(() => document.fonts.ready);
     assert.equal(await mobile.locator('h1').evaluate(el => getComputedStyle(el).fontSize), '26px');
     for(const selector of readingSelectors) assert.equal(await mobile.locator(selector).first().evaluate(el=>getComputedStyle(el).fontSize),'16px',selector);
     assert.equal(await mobile.locator('#demos .section-heading > p:last-child').evaluate(el=>Math.abs(el.getBoundingClientRect().width-el.closest('.container').getBoundingClientRect().width)<1),true);
 
-    assert.equal(await mobile.locator('video source[src]').count(),0);
+    assert.ok(await mobile.locator('video source[src]').evaluateAll(sources=>sources.every(source=>source.getAttribute('src')==='assets/media/supplementary.mp4')), 'Only Overview may load on mobile entry');
     assert.deepEqual(await abstractStyles(mobile), [['justify','left','auto'],['justify','left','auto']]);
     for (const media of await mobile.locator('.challenge-media').all()) {
       await media.scrollIntoViewIfNeeded();

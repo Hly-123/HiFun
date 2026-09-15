@@ -159,7 +159,7 @@ details[open]>summary>span {transform:rotate(45deg)}
 .diagram-label {font-size:10px; text-transform:uppercase; letter-spacing:.13em; font-weight:700; color:var(--muted)}
 .method-observation p {font-size:15px; margin:8px 0}
 .policy-pair {display:grid; grid-template-columns:1fr 1fr; gap:24px; max-width:960px; margin-inline:auto}
-.complete-method-figure {max-width:960px; margin-inline:auto}
+.complete-method-figure {width:100%; max-width:none; margin-inline:auto}
 .policy {border-top:3px solid currentColor; padding:22px 24px; text-align:center; border-radius:0 0 8px 8px}
 .policy-skill {color:var(--skill); background:var(--skill-soft)} .policy-coord {color:var(--coord); background:var(--coord-soft)}
 .policy-id {font:500 32px var(--display)} .policy-id sub {font-size:14px}
@@ -449,3 +449,7 @@ figcaption,.source-note,.hero-note,.film-footnote,.evidence-link,
 .media-frame:has(#hero-video) .video-controls {top:12px; bottom:auto}
 .media-frame:fullscreen {width:100%; height:100%; border-radius:0; background:#17211d}
 .media-frame:fullscreen video {object-fit:contain}
+
+/* Keep short last lines readable without changing justified alignment. */
+main p,main figcaption {text-wrap:pretty}
+main h2,main h3,main h4 {text-wrap:balance}

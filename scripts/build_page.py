@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def film(name, label, *, autoplay=False, speed='', portrait=False, loop=True, button_label=None, hold_last_frame=False):
     return f'''<div class="media-frame{' portrait-video' if portrait else ''}">
-      <video class="managed-video" {'id="hero-video"' if autoplay else ''} {'controls data-autoplay' if name == 'supplementary' else 'data-autoplay data-simple-player controlslist="nodownload noplaybackrate noremoteplayback" disablepictureinpicture disableremoteplayback'} {'data-hold-last-frame' if hold_last_frame else ''} muted playsinline {'loop' if loop else ''} preload="none" poster="assets/posters/{name}.webp" width="{'540' if portrait else '1280'}" height="{'960' if portrait else '720'}" aria-label="{escape(label)}">
+      <video class="managed-video" {'id="hero-video"' if autoplay else ''} {'controls data-autoplay' if name == 'supplementary' else 'data-autoplay data-simple-player controlslist="nodownload noplaybackrate noremoteplayback" disablepictureinpicture disableremoteplayback'} {'data-hold-last-frame' if hold_last_frame else ''} {'muted' if name != 'supplementary' else ''} playsinline {'loop' if loop else ''} preload="none" poster="assets/posters/{name}.webp" width="{'540' if portrait else '1280'}" height="{'960' if portrait else '720'}" aria-label="{escape(label)}">
         <source data-src="assets/media/{name}.mp4" type="video/mp4">
       </video>{f'<span class="speed-label">{speed}</span>' if speed else ''}
       <button class="video-start" aria-label="Play {escape(label)}"><span aria-hidden="true">▶</span> {escape(button_label or label)}</button>
@@ -87,7 +87,7 @@ html += '''<div class="abstract"><p>While multi-fingered dexterous robot hands h
 html += '</div></section>'
 
 html += '<section class="section section-white" id="demos"><div class="container">'
-html += heading('01', 'Task challenges', 'What makes functional dexterity challenging?', 'Functional dexterous tasks demand precise contact, coordinated arm–hand motion, and recovery from small execution errors. Constrained tool retrieval brings these requirements together in a single task.')
+html += heading('01', 'Task challenges', 'Challenges in functional dexterity', 'Functional dexterous tasks demand precise contact, coordinated arm–hand motion, and recovery from small execution errors. Constrained tool retrieval brings these requirements together in a single task.')
 html += '<div class="demo-layout"><figure>' + film('position-disturbances', 'Watch the contact sequence') + '<figcaption>Tool retrieval under position disturbances · Sharpa hand</figcaption></figure><ol class="contact-sequence">'
 for i, (title, text) in enumerate([
     ('Precise contact', 'Place fingertips on the exposed handle and regulate force as contact changes.'),
@@ -98,34 +98,34 @@ for i, (title, text) in enumerate([
 html += '</ol></div></div></section>'
 
 html += '<section class="section section-white" id="method"><div class="container">'
-html += heading('02', 'Method', 'Learn contact skills.<br>Coordinate their execution.', 'HiFun separates learning how the fingers make contact from learning where and when to use that contact. First, residual RL refines a kinesthetic reference into a contact-aware hand skill. With this skill frozen, a coordination policy learns arm motion and skill activation, starting from DMP rollouts and improving through value-guided human-in-the-loop learning. At execution time, the two policies work together to approach the target and perform fine-grained contact.')
+html += heading('02', 'Method', 'Learn contact skills.<br>Coordinate their use.', 'HiFun separates learning how the fingers make contact from learning where and when to use that contact. First, residual RL refines a kinesthetic reference into a contact-aware hand skill. With this skill frozen, a coordination policy learns arm motion and skill activation, starting from DMP rollouts and improving through value-guided human-in-the-loop learning. At execution time, the two policies work together to approach the target and perform fine-grained contact.')
 html += '<div class="complete-method-figure">' + figure('method', 'Complete HiFun framework', '') + '</div>'
 html += '</div></section><section class="section" id="results"><div class="container">'
 html += heading('03', 'Real-world evaluation', 'Functional dexterous tasks.', 'Each task is evaluated over 50 trials with randomized object poses inside the trained workspace. Success requires completing the functional outcome.')
 html += '<div class="task-grid">'
 tasks = [
-    ('A', 'Precise tool use', 'Sharpa', 'Power-Drill Actuation', 'power-drill', 50, 'Tighten the target screw while maintaining alignment and actuating the trigger.'),
-    ('B', 'Constrained space', 'Sharpa', 'Angle-Spreader Retrieval', 'angle-spreader-40s', 50, 'Establish fingertip contact and fully extract the tool from its constrained tray.'),
+    ('A', 'Precise tool use', 'Sharpa', 'Power-Drill Actuation', 'power-drill', 50, 'Align the drill and press the trigger to tighten the target screw.'),
+    ('B', 'Constrained space', 'Sharpa', 'Angle-Spreader Retrieval', 'angle-spreader-40s', 50, 'Maintain fingertip contact to extract the tool from a tight tray.'),
     ('C', 'Constrained space', 'Sharpa', 'Thin-Handle Retrieval', 'thin-handle', 50, 'Lever an exposed handle into reach, form a precision grasp and fully extract it.'),
     ('D', 'Contact-rich rotation', 'Sharpa', 'Power-Drill Bit Removal', 'bit-removal', 50, 'Maintain multi-finger contact while loosening the chuck, then remove the drill bit.'),
     ('E', 'Precise tool use', 'XHand', 'Pipette Dispensing', 'pipette-adaptation', 45, 'Three dispensing executions, side by side. The hand aligns the pipette with each vial and adapts as the vial position changes.'),
     ('F', 'Constrained space', 'XHand', 'Thin-Shaft Tool Retrieval', 'thin-shaft', 50, 'Use a fingertip contact sequence to fully retrieve a thin shaft embedded in foam.')]
 for code, category, hand, title, name, count, copy in tasks:
     if code == 'E':
-        html += '</div><div class="subsection-heading" id="cross-hand"><p class="eyebrow">Across hand embodiments</p><h3>One framework, different dexterous hands</h3><p>HiFun deploys on both Sharpa and XHand. XHand demonstrations span pipette dispensing, constrained tool retrieval, drill operation, and faucet manipulation.</p></div><div class="task-grid xhand-tasks">'
+        html += '</div><div class="subsection-heading" id="cross-hand"><p class="eyebrow">Across hand embodiments</p><h3>One framework, different dexterous hands</h3><p>HiFun deploys on Sharpa and XHand. XHand tasks include pipette dispensing, constrained tool retrieval, drill operation, and faucet control.</p></div><div class="task-grid xhand-tasks">'
     html += f'<article class="task"><div class="task-heading"><div><span class="task-category">{code} / {category} · {hand}</span><h3>{title}</h3></div></div>' + film(name, title, speed='1.5×' if name == 'thin-shaft' else '', loop=False, hold_last_frame=name == 'pipette-adaptation') + f'<p>{copy}</p></article>'
 for title, name, copy in [
     ('Power-Drill Operation', 'xhand-drill', 'Coordinate tool alignment and trigger actuation while handling changes in the target position.'),
-    ('Faucet Operation', 'xhand-faucet', 'Maintain finger contact to operate the faucet handle during physical interaction.')]:
+    ('Faucet Operation', 'xhand-faucet', 'Maintain finger contact while turning the faucet handle.')]:
     html += f'<article class="xhand-demo"><div class="task-heading"><div><span class="task-category">Additional task · XHand</span><h3>{title}</h3></div></div>' + film(name, title, loop=False) + f'<p>{copy}</p></article>'
 html += '</div>'
-html += '<div class="subsection-heading" id="more-dexterous-tasks"><p class="eyebrow">Across tasks and hands</p><h3>More successful deployment</h3></div>'
+html += '<div class="subsection-heading" id="more-dexterous-tasks"><p class="eyebrow">Across tasks and hands</p><h3>Further deployments</h3></div>'
 html += '<div class="more-tasks-feature"><figure>' + film('deployment-montage', 'Nine-view deployment montage', loop=False) + '</figure><figure>' + film('more-dexterous-tasks', 'More dexterous tasks on XHand', loop=False) + '</figure></div>'
 html += '<div class="subsection-heading" id="recovery-transfer"><p class="eyebrow">Beyond nominal rollouts</p><h3>Recovery &amp; Generalization</h3><p>HiFun adapts to position disturbances, object-size changes, and disruptions in fingertip contact.</p></div><div class="extension-grid">'
 html += '<figure>' + film('position-disturbances', 'Position disturbances') + '<figcaption><strong>Position disturbances.</strong> When the tool’s position is disturbed, HiFun re-establishes alignment and contact to continue the retrieval.</figcaption></figure>'
 html += '<figure>' + film('size-transfer', 'Object-size generalization', speed='2×') + '<figcaption><strong>Object-size generalization.</strong> The same learned hand skill transfers from a 7.5 cm tool to smaller 6.5 cm and 5.5 cm variants.</figcaption></figure></div>'
 
-html += '<div class="finger-adaptation" id="contact-evidence"><figure class="wide-evidence">' + film('contact-recovery', 'Watch finger-level adaptation', speed='1×') + '<figcaption><strong>Finger-level adaptation.</strong> After a collision rotates the key and breaks thumb contact, the hand skill adjusts the fingers to restore contact without arm re-alignment.</figcaption></figure>'
+html += '<div class="finger-adaptation" id="contact-evidence"><figure class="wide-evidence">' + film('contact-recovery', 'Watch finger-level adaptation', speed='1×') + '<figcaption><strong>Finger-level adaptation.</strong> After a collision rotates the key and breaks thumb contact, the hand skill adjusts the fingers to restore contact without realigning the arm.</figcaption></figure>'
 html += '<figure class="recovery-sequence"><div class="recovery-scroll" role="region" tabindex="0" aria-label="Five-frame contact recovery sequence; scroll horizontally for detail"><button class="zoom-figure" data-zoom="assets/figures/key-recovery-sequence.png" aria-label="Enlarge the five-frame contact recovery sequence"><img src="assets/figures/key-recovery-sequence.png" width="7421" height="1109" loading="lazy" alt="Five frames: an unexpected hand–object collision reverses the key rotation; abnormal thumb contact triggers reference-state rewind; residual finger adjustment restores thumb contact. Original arrows, equations and timestamps are preserved."></button></div><figcaption><strong>Contact disruption → reference rewind → residual adjustment → restored contact.</strong> <span class="scroll-hint">Swipe or use the arrow keys to inspect all five frames.</span> Click the figure to enlarge.</figcaption></figure>' + '</div>'
 
 html += '<div class="subsection-heading" id="long-horizon"><p class="eyebrow">Long-horizon manipulation</p><h3>Multiple skills, one policy</h3><p>Here, HiFun runs on XHand in a longer functional sequence. The policy turns the key, grasps the drill, and places it into the drawer by coordinating different hand skills. This shows that HiFun can deploy across dexterous hands and integrate multiple skills in one policy.</p></div>'
@@ -163,8 +163,7 @@ html += '</div></section>'
 
 html += '<section class="hero highlights section-white" id="highlights"><div class="container hero-inner"><h2 class="hero-thesis">Learning <span class="text-skill">contact skills</span> and <span class="text-coord">when to use them.</span></h2>'
 html += film('hero', 'Watch HiFun', autoplay=True)
-html += '''<div class="film-footnote"><span>25 seconds · real robot executions · edited excerpts</span><span>Recovery includes an additional key-turning example.</span></div>
-<div class="headline-metrics" aria-label="Main evaluation summary"><div><strong>295<span>/300</span></strong><p>successful evaluation trials</p></div><div><strong>6</strong><p>functional manipulation tasks</p></div><div><strong>2</strong><p>dexterous hand embodiments</p></div><div><strong>≤60<span> min</span></strong><p>online HIL per task</p></div></div>
+html += '''<div class="headline-metrics" aria-label="Main evaluation summary"><div><strong>295<span>/300</span></strong><p>successful evaluation trials</p></div><div><strong>6</strong><p>functional tasks</p></div><div><strong>2</strong><p>dexterous hands</p></div><div><strong>≤60<span> min</span></strong><p>online HIL per task</p></div></div>
 <p class="source-note hero-note">98.3% mean success over 50 trials per task. The ≤60-minute budget covers online HIL; the full pipeline averages approximately 109 min/task.</p></div></section>'''
 
 html += '<section class="section citation-only" id="citation-section"><div class="container">'
