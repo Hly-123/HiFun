@@ -13,8 +13,8 @@ def film(name, label, *, autoplay=False, speed='', portrait=False, loop=True, bu
       </video>{f'<span class="speed-label">{speed}</span>' if speed else ''}
       <button class="video-start" aria-label="Play {escape(label)}"><span aria-hidden="true">▶</span> {escape(button_label or label)}</button>
       {('<div class="video-controls"><button class="video-toggle" type="button" aria-label="Pause ' + escape(label) + '">Pause</button><button class="video-fullscreen" type="button" aria-label="Full screen: ' + escape(label) + '">⛶</button></div>') if name != 'supplementary' else ''}
-      {('<div class="film-caption" aria-hidden="true"><span class="live-dot"></span><span id="hero-scene">Contact, leverage, retrieve</span><span id="hero-index">01 / 03</span></div>') if autoplay else ''}
-    </div>'''
+    </div>
+    {('<div class="film-caption" aria-hidden="true"><span class="live-dot"></span><span id="hero-scene">Contact, leverage, retrieve</span><span id="hero-index">01 / 03</span></div>') if autoplay else ''}'''
 
 
 def heading(num, subject, title, copy):
@@ -77,7 +77,7 @@ html = '''<!doctype html><html lang="en"><head>
 <p class="conference-badge">Accepted to <strong>CoRL 2026</strong></p>
 <div class="authors" aria-label="Authors"><a href="https://hly-123.github.io/" target="_blank" rel="noopener noreferrer">Linyi Huang<sup>1</sup></a><a href="https://github.com/gray-wei" target="_blank" rel="noopener noreferrer">Guowei Huai<sup>1</sup></a><a href="https://scholar.google.com/citations?user=P0IYZdYAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Weibin Liu<sup>1</sup></a><a href="https://scholar.google.com/citations?user=stsR9BcAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Shulong Jiang<sup>1</sup></a><a href="https://scholar.google.com/citations?user=XhyKVFMAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Ping Tan<sup>2</sup></a><a href="https://scholar.google.com/citations?user=0zZ27MgAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Weixuan Zhang<sup>1</sup></a><a href="https://zdchan.github.io/" target="_blank" rel="noopener noreferrer">Hui Zhang<sup>3</sup></a><a href="https://scholar.google.com/citations?user=kBN1B6YAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Jie Song<sup>1,2</sup></a></div>
 <p class="affiliations"><span><sup>1</sup> HKUST (Guangzhou)</span><span><sup>2</sup> HKUST</span><span><sup>3</sup> ETH Zurich</span></p>
-<div class="resource-buttons"><a class="button button-dark" href="#full-video">Overview video ↗</a><button class="button button-coming-soon" type="button" disabled>Paper · Coming soon</button><a class="button code-repository" href="https://github.com/Hly-123/HiFun-code" aria-label="HiFun official code — coming soon. Star the repository on GitHub.">Code · Coming soon ↗</a></div>
+<div class="resource-buttons"><button class="button button-coming-soon" type="button" disabled>Paper · Coming soon</button><a class="button code-repository" href="https://github.com/Hly-123/HiFun-code" aria-label="HiFun official code — coming soon. Star the repository on GitHub.">Code · Coming soon ↗</a></div>
 </div></section>
 <section class="overview" id="overview"><div class="container"><h2 class="overview-title">Overview</h2><figure class="full-video" id="full-video">
 '''

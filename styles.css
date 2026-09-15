@@ -75,7 +75,8 @@ h1 {font-size:clamp(26px,3vw,42px); line-height:1.22; font-weight:500; margin:15
 .video-start:hover {background:#277657ee}
 .video-start>span {font-size:11px}
 .media-frame.is-started .video-start {display:none}
-.film-caption {position:absolute; inset:auto 0 43px; padding:10px 20px; display:flex; align-items:center; gap:8px; background:linear-gradient(transparent,#14221c99); color:white; font-size:var(--reading-size); text-shadow:0 1px 3px #000; pointer-events:none}
+.film-caption {display:flex; align-items:center; gap:10px; width:100%; max-width:1050px; margin:16px auto 0; padding:0; color:var(--ink); font-size:var(--reading-size); text-align:left}
+.film-caption .live-dot {background:var(--coord); flex-shrink:0; margin-block:10px}
 #hero-index {margin-left:auto; font:var(--reading-size) var(--display); letter-spacing:1px}
 .live-dot {background:#a3dda7; width:6px; height:6px; border-radius:50%}
 .film-footnote {max-width:1050px; margin:10px auto 0; display:flex; justify-content:space-between; gap:16px; font-size:10px; color:var(--muted); text-align:left}
@@ -252,7 +253,7 @@ dialog img {margin:auto; max-height:calc(94vh - 90px); object-fit:contain}
   .resource-buttons {gap:7px; margin-top:17px} .button {font-size:11px; padding:7px 12px}
   .release-status {font-size:10px; margin:2px 0 0; width:100%; justify-content:center}
   .hero-thesis {font-size:21px; line-height:1.3; margin:22px auto 18px; max-width:330px}
-  .hero .media-frame {border-radius:8px} .film-caption {font-size:9px; padding:5px 8px; bottom:auto; top:10px; left:10px; right:10px; border-radius:4px; background:#14221cb3}
+  .hero .media-frame {border-radius:8px} .film-caption {margin-top:12px; gap:8px}
   #hero-index {font-size:9px} .film-footnote {font-size:9px; display:block; line-height:1.6}
   .film-footnote>span {display:block} .video-start {font-size:11px; padding:10px 13px; gap:8px}
   .headline-metrics {grid-template-columns:1fr 1fr; padding:0; margin-top:24px}
