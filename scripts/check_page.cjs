@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { chromium } = require(process.env.HIFUN_PLAYWRIGHT || 'playwright');
 const origin = process.env.HIFUN_PREVIEW_URL || 'http://127.0.0.1:8765';
-const output = path.resolve(__dirname, '../.preview');
+const output = path.resolve(__dirname, '../.preview/task-challenges-v3');
 fs.mkdirSync(output, { recursive: true });
 
 (async () => {
@@ -25,8 +25,8 @@ fs.mkdirSync(output, { recursive: true });
     assert.equal(await page.locator('h1').evaluate(el => getComputedStyle(el).fontSize), '42px');
     assert.deepEqual(await page.locator('.brand').allTextContents(), ['HiFun', 'HiFun']);
     assert.equal(await page.locator('.wordmark').innerText(), 'HiFun');
-    assert.deepEqual(await page.locator('#nav-links a').allTextContents(), ['Overview','Challenges','Demos','Evidence','Method','Results','Resources']);
-    assert.deepEqual(await page.locator('main > section').evaluateAll(els => els.map(el => el.id)), ['top','overview','abstract','challenges','highlights','demos','insights','method','results','training-cost','resources']);
+    assert.deepEqual(await page.locator('#nav-links a').allTextContents(), ['Overview','Task Challenges','Insights','Method','Results','Citation']);
+    assert.deepEqual(await page.locator('main > section').evaluateAll(els => els.map(el => el.id)), ['top','overview','abstract','demos','challenges','highlights','method','results','citation-section']);
     assert.equal(await page.locator('#full-video').count(), 1);
     assert.equal(await page.locator('#overview h2').innerText(), 'Overview');
     assert.equal(await page.locator('#overview .eyebrow').count(),0);
@@ -38,12 +38,12 @@ fs.mkdirSync(output, { recursive: true });
     assert.deepEqual(await abstractStyles(page), [['justify','left','auto'],['justify','left','auto']]);
     assert.equal(await page.locator('#abstract .source-note').count(),0);
     assert.doesNotMatch(await page.locator('#abstract').innerText(),/Abstract from the supplied manuscript/);
-    assert.equal(await page.locator('#demos h2').innerText(),'Precise contact · Arm–hand coordination · Reactive recovery');
-    assert.match(await page.locator('#demos .section-heading').innerText(),/slipping, trapping the tool, or colliding/);
+    assert.equal(await page.locator('#demos h2').innerText(),'What makes functional dexterity challenging?');
+    assert.match(await page.locator('#demos .section-heading').innerText(),/precise contact, coordinated arm–hand motion/);
     assert.equal(await page.locator('#demos h2 br').count(),0);
     assert.equal(await page.locator('#demos h2').evaluate(el=>el.getBoundingClientRect().height <= parseFloat(getComputedStyle(el).lineHeight)+1),true,'Desktop task title fits one line');
     assert.equal(await page.locator('#demos .section-heading > p:last-child').evaluate(el=>Math.abs(el.getBoundingClientRect().width-el.closest('.container').getBoundingClientRect().width)<1),true,'Task introduction spans the content width');
-    const readingSelectors=['[data-kind="iaw"] figcaption','[data-kind="iaw"] figcaption strong','.source-note','.evidence-link','.contact-sequence p','.resource-list small','.paired-numbers p'];
+    const readingSelectors=['[data-kind="iaw"] figcaption','[data-kind="iaw"] figcaption strong','.source-note','.evidence-link','.contact-sequence p'];
     for(const selector of readingSelectors) assert.equal(await page.locator(selector).first().evaluate(el=>getComputedStyle(el).fontSize),'17px',selector);
 
     assert.doesNotMatch(await page.locator('[data-kind="skill"] figcaption').innerText(),/Source timing preserved|outside the six-task/);
@@ -63,8 +63,17 @@ fs.mkdirSync(output, { recursive: true });
     assert.equal(await page.locator('#abstract details').count(), 0);
     assert.equal(await page.locator('.challenge-row').count(), 4);
     assert.equal(await page.getByText('Baseline comparison and evaluation protocol', {exact:true}).count(), 0);
-    assert.equal(await page.locator('#insights h2').innerText(), 'Evidence behind the design');
-    assert.deepEqual(await page.locator('.bar-row > strong').allTextContents(), ['12.5%','46%','100%']);
+    assert.equal(await page.locator('#insights,#training-cost,#resources').count(),0);
+    assert.equal(await page.locator('#citation-section').count(),1);
+    assert.deepEqual(await page.locator('.contact-sequence h3').allTextContents(),['Precise contact','Arm–hand coordination','Reactive recovery']);
+    assert.equal(await page.locator('#demos .takeaway').count(),0);
+    assert.equal(await page.locator('.bar-chart,.analysis-grid,.evidence-strip,.cost-layout,.resource-list').count(),0);
+    assert.equal(await page.locator('#results #contact-evidence').count(),1);
+    assert.equal(await page.locator('.recovery-sequence').count(),1);
+    assert.deepEqual(await page.locator('.extension-grid figcaption strong').allTextContents(),['Position disturbances.','Object-size generalization.']);
+    assert.match(await page.locator('#contact-evidence').innerText(),/Finger-level adaptation/);
+    assert.ok(await page.locator('#contact-evidence').evaluate(el=>el.previousElementSibling.classList.contains('extension-grid')&&el.nextElementSibling.id==='long-horizon'));
+    assert.equal(await page.locator('.challenge-media a[href^="#"]').count(),1);
     await page.screenshot({ path: path.join(output, 'desktop.png') });
     await page.locator('#full-video .video-start').click();
     await page.waitForFunction(() => !document.querySelector('#full-video video').paused);
@@ -232,16 +241,12 @@ fs.mkdirSync(output, { recursive: true });
     await mobile.locator('#nav-links a[href="#results"]').click();
     assert.equal(await mobile.locator('.menu-toggle').getAttribute('aria-expanded'), 'false');
     assert.equal(await mobile.locator('.task-grid').first().evaluate(el => getComputedStyle(el).gridTemplateColumns.split(' ').length), 1);
-    for (const selector of ['#top','#overview','#abstract','#challenges','#highlights','.recovery-sequence','#demos','#insights','.comparison-layout','.analysis-grid','#method','#results','#training-cost','#resources']) {
+    for (const selector of ['#top','#overview','#abstract','#demos','#challenges','#highlights','#method','#results','#recovery-transfer','#contact-evidence','.recovery-sequence','#long-horizon','#citation-section']) {
       await mobile.locator(selector).scrollIntoViewIfNeeded();
       assert.equal(await mobile.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `Mobile overflow at ${selector}`);
     }
-    await mobile.locator('.comparison-layout').screenshot({path:path.join(output,'mobile-comparison.png')});
-    await mobile.locator('.analysis-grid').screenshot({path:path.join(output,'mobile-analysis.png')});
-    await page.locator('.comparison-layout').screenshot({path:path.join(output,'desktop-comparison.png')});
     await page.locator('#method .method-diagram').screenshot({path:path.join(output,'desktop-method.png')});
     await page.locator('.task-grid').first().screenshot({path:path.join(output,'desktop-tasks.png')});
-    await page.locator('.cost-layout').screenshot({path:path.join(output,'desktop-cost.png')});
 
     const quiet = await browser.newContext({ viewport:{width:390,height:844}, reducedMotion:'reduce' });
     const quietPage = await quiet.newPage();
@@ -251,9 +256,21 @@ fs.mkdirSync(output, { recursive: true });
     assert.equal(await quietPage.locator('video source[src]').count(),0,'Reduced motion disables unsolicited video loading');
     assert.equal(await quietPage.locator('#hero-video').evaluate(v=>v.paused),true);
     await quiet.close();
+
+    await page.locator('#demos').screenshot({path:path.join(output,'desktop-task-challenges.png')});
+    await mobile.locator('#demos').screenshot({path:path.join(output,'mobile-task-challenges.png')});
+    await page.locator('#contact-evidence').screenshot({path:path.join(output,'desktop-finger-adaptation.png')});
+    await mobile.locator('#contact-evidence').screenshot({path:path.join(output,'mobile-finger-adaptation.png')});
+    await page.locator('#citation-section').screenshot({path:path.join(output,'desktop-citation.png')});
+    const legacy = {'insights':'challenges','coordination-evidence':'challenge-skill','value-evidence':'challenge-critic','iaw-evidence':'challenge-iaw','resources':'citation-section','training-cost':'highlights'};
+    for(const [oldHash,newHash] of Object.entries(legacy)) {
+      await page.evaluate(hash=>{location.hash=hash;},oldHash);
+      await page.waitForFunction(hash=>location.hash==='#'+hash,newHash);
+      assert.equal(await page.locator('#'+newHash).count(),1);
+    }
     assert.deepEqual(errors, [], 'No browser JS errors');
     assert.deepEqual(failed, [], 'No failed resource responses');
-    const report = {status:'passed',localResources:relative.length,checks:['full-width task introduction and single-line desktop title','17px desktop and 16px mobile captions and supporting copy','paper-grounded task challenges and IAW explanation','removed abstract attribution and requested clip notes','Overview naming and accessible play button','justified desktop/mobile Abstract with left-aligned final lines','four matching challenge media and responsive subplots','full author-selected skill video','method modules and experimental plot keyboard zoom','Full-DoF HIL-SERL versus HiFun video, shared playback and source speeds','v2 narrative order and nonduplicated overview','42px desktop and 26px mobile title','four challenge-insight relationships','25-second highlights and exact 7s/18s caption boundaries','five-frame image and keyboard-accessible mobile scrolling','method step title line breaks','desktop and mobile layout','local resources and anchors','video decoding','lazy loading','offscreen pause and resume','explicit pause persists','mobile navigation','dialog keyboard close and focus return','clipboard','reduced-motion autoplay'],errors,failed};
+    const report = {status:'passed',localResources:relative.length,checks:['task challenges between Abstract and Insights; clear title and three demands','17px desktop and 16px mobile captions and supporting copy','paper-grounded task challenges and IAW explanation','removed abstract attribution and requested clip notes','Overview naming and accessible play button','justified desktop/mobile Abstract with left-aligned final lines','four matching challenge media and responsive subplots','full author-selected skill video','method modules and experimental plot keyboard zoom','Full-DoF HIL-SERL versus HiFun video, shared playback and source speeds','full-version Overview and Abstract preserved; focused section order','42px desktop and 26px mobile title','four challenge-insight relationships with valid sources after Evidence removal','25-second highlights and exact 7s/18s caption boundaries','five-frame image and keyboard-accessible mobile scrolling','method step title line breaks','desktop and mobile layout','local resources and anchors','video decoding','lazy loading','offscreen pause and resume','explicit pause persists','mobile navigation','dialog keyboard close and focus return','clipboard','reduced-motion autoplay'],errors,failed};
     fs.writeFileSync(path.join(output,'validation.json'),JSON.stringify(report,null,2));
     console.log(JSON.stringify(report,null,2));
   } finally { await browser.close(); }

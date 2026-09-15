@@ -61,8 +61,7 @@ h1 {font-size:clamp(26px,3vw,42px); line-height:1.22; font-weight:500; margin:15
 .button:hover {background:var(--coord-soft)}
 .button-dark {background:var(--ink); border-color:var(--ink); color:white}
 .button-dark:hover {background:var(--coord); color:white; border-color:var(--coord)}
-.release-status {display:inline-flex; align-items:center; gap:6px; font-size:11px; color:var(--muted); margin-left:9px}
-.release-status i {width:5px; height:5px; border-radius:50%; background:#8c968f}
+.button-coming-soon:disabled {color:var(--muted); background:#ffffffb3; cursor:default; opacity:1}
 .hero-thesis {font-family:var(--display); font-size:clamp(18px,2vw,23px); margin:24px 0 19px; font-weight:500; letter-spacing:-.035em}
 .media-frame {position:relative; overflow:hidden; background:#17211d; border-radius:10px; aspect-ratio:16/9; isolation:isolate}
 .media-frame video {display:block; width:100%; height:100%; aspect-ratio:16/9; object-fit:contain; background:#17211d}
@@ -154,8 +153,9 @@ details[open]>summary>span {transform:rotate(45deg)}
 .method-observation {text-align:center; margin-bottom:30px}
 .diagram-label {font-size:10px; text-transform:uppercase; letter-spacing:.13em; font-weight:700; color:var(--muted)}
 .method-observation p {font-size:15px; margin:8px 0}
-.policy-pair {display:grid; grid-template-columns:1fr 1fr; gap:32px}
-.policy {border-top:3px solid currentColor; padding:29px 30px; text-align:center; border-radius:0 0 8px 8px}
+.policy-pair {display:grid; grid-template-columns:1fr 1fr; gap:24px; max-width:960px; margin-inline:auto}
+.complete-method-figure {max-width:960px; margin-inline:auto}
+.policy {border-top:3px solid currentColor; padding:22px 24px; text-align:center; border-radius:0 0 8px 8px}
 .policy-skill {color:var(--skill); background:var(--skill-soft)} .policy-coord {color:var(--coord); background:var(--coord-soft)}
 .policy-id {font:500 32px var(--display)} .policy-id sub {font-size:14px}
 .policy h3 {margin-top:18px; font-size:28px}
@@ -386,3 +386,19 @@ figcaption,.source-note,.hero-note,.film-footnote,.evidence-link,
 }
 
 @media(prefers-reduced-motion:reduce) {html {scroll-behavior:auto} *,*:before,*:after {transition:none!important; animation:none!important}}
+
+/* Task demands precede learning challenges; three recovery examples stay together. */
+#demos h2 {font-size:clamp(34px,3.6vw,50px); line-height:1.18; letter-spacing:-.035em}
+#demos .contact-sequence {gap:28px}
+#demos .contact-sequence h3 {font-size:22px}
+.finger-adaptation {margin-top:40px}
+.finger-adaptation .wide-evidence {max-width:960px}
+.finger-adaptation .recovery-sequence {margin-top:28px}
+.citation-only .citation-section {margin-top:0; padding-top:0; border-top:0}
+.citation-heading h2 {font-size:34px}
+@media(max-width:760px) {
+  #demos h2 {font-size:34px}
+  #demos .contact-sequence h3 {font-size:21px}
+  .finger-adaptation {margin-top:32px}
+  .citation-heading h2 {font-size:28px}
+}

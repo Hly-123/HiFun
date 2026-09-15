@@ -174,6 +174,22 @@ addEventListener('resize', scheduleScroll);
 document.querySelectorAll('details').forEach(details => details.addEventListener('toggle', scheduleScroll));
 updateScroll();
 
+// Keep previously shared links useful after removing the standalone evidence/resources chapters.
+const legacyAnchors = {
+  insights:'challenges',
+  'coordination-evidence':'challenge-skill',
+  'value-evidence':'challenge-critic',
+  'iaw-evidence':'challenge-iaw',
+  'training-cost':'highlights',
+  resources:'citation-section'
+};
+function resolveLegacyAnchor() {
+  const replacement = legacyAnchors[location.hash.slice(1)];
+  if (replacement) location.replace('#' + replacement);
+}
+addEventListener('hashchange', resolveLegacyAnchor);
+resolveLegacyAnchor();
+
 const dialog = document.querySelector('#figure-dialog');
 let figureTrigger = null;
 document.querySelectorAll('[data-zoom]').forEach(button => button.addEventListener('click', () => {

@@ -39,7 +39,7 @@ The teaser uses PPT media2 (0–7 s), `Powerdrill_Actuation_AND_Bit_removal.mp4`
 
 ## Page narrative
 
-Title and authors → click-to-play Overview video → expanded Abstract → four Challenges & Insights → 25-second highlights and metrics → task walkthrough and experimental evidence → method → six-task results → costs and resources. No video body is requested on initial load. Highlights autoplay only when visible, respecting reduced motion; other videos load on demand. The recovery figure scrolls within its own container on mobile and opens in a keyboard-dismissible dialog.
+Title and authors → click-to-play Overview video → expanded Abstract → Task Challenges → four Challenges & Insights → 25-second highlights and metrics → Method → six-task results, recovery/generalization and long-horizon execution → Citation. The task introduction pairs the existing Thin-Handle video with precise contact, arm–hand coordination and reactive recovery requirements. Standalone Experimental evidence, Learning cost & autonomy and Explore the work sections are removed. Recovery & Generalization contains position disturbances and object-size generalization side by side, followed by the finger-level adaptation video and five-frame image. Paper and Appendix stay available in the top resource buttons. No video body loads on initial entry; highlights autoplay only when visible and respect reduced motion.
 
 Each Challenge includes the author's selected visual: the full `Unlock_pin_tool_Clean.mp4`; the method overview's multi-head critic module beside Appendix Fig. 4A; side-by-side Full-DoF HIL-SERL (`Pin-Tool-HILSERL-Full-DoF.mp4`) and HiFun (`ppt-1-xhand-dig-tool-7s_x264.mp4`); and the method overview's IAW module. The qualitative comparison clips keep their original lengths and speeds and loop independently, with a shared play/pause control. Method modules are cropped from a 7200-pixel rendering of paper page 3, preserving the original formulas and labels. Experimental subplots stack vertically on mobile and open individually for inspection. All selected media are reproducible through `prepare_challenge_assets` in the asset preparation script. Abstract paragraphs use justified alignment with English auto-hyphenation and a left-aligned final line.
 
@@ -49,7 +49,7 @@ The task walkthrough follows the Introduction (pp. 1–2): precise contact, sync
 
 - Main evaluation: six tasks, 50 trials each, 295/300 successes (98.3%).
 - Rebuttal baseline comparison: four Sharpa tasks. The 12.5%, 46% and 100% values must not be mixed with six-task averages.
-- The six-task baseline table is omitted from the homepage. The four-task Skill-HIL comparison and component ablations remain; evaluation protocols are available in the linked Appendix.
+- The six-task baseline table is omitted from the homepage. The standalone four-task comparison and component-ablation section are omitted in this focused version; the Challenges blocks link directly to the paper and Appendix for those evaluations.
 - The ≤60-minute claim describes online HIL coordination only. The ~109-minute total follows the rebuttal's full-pipeline accounting.
 - Key recovery is an additional skill example. Fixed-arm evaluations and local size transfer are distinct from the main evaluation.
 - Two-hand deployment does not claim zero-shot policy transfer across hand morphologies.
@@ -70,7 +70,7 @@ The check covers local resources, anchors, media decoding, initial video loading
 
 ## Publication
 
-This revision is prepared for local review. It does not publish the site, push commits, or change repository visibility. Review author metadata, manuscript links, citation and code release status before a future public deployment.
+Cloudflare Pages publishes the `master` branch at https://hifun-cfu.pages.dev/ using `python3 scripts/build_public_site.py` and the `dist` output directory. Pushing to `master` automatically updates the public website; the GitHub repository remains private. The previous full version is preserved by the `full` tag at `52470db`.
 
 
 ### Evaluation presentation
