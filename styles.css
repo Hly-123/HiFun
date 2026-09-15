@@ -53,9 +53,10 @@ small {font-size:.8em}
 h1 {font-size:clamp(26px,3vw,42px); line-height:1.22; font-weight:500; margin:15px auto 0; max-width:1120px; letter-spacing:-.025em}
 .conference-badge {display:table; margin:20px auto 0; padding:7px 18px; border:1px solid #c4d8cb; border-radius:999px; background:#e8f1e9; color:var(--coord); font-size:var(--reading-size); line-height:1.5; letter-spacing:.015em}
 .conference-badge strong {font-weight:700}
-.authors {display:flex; justify-content:center; flex-wrap:wrap; gap:3px 18px; font-size:13px; font-weight:600; margin:21px auto 0}
+.authors {display:flex; justify-content:center; flex-wrap:wrap; gap:7px 20px; font-size:18px; font-weight:600; margin:24px auto 0}
 .authors>span,.authors>a {white-space:nowrap}
-.affiliations {display:flex; justify-content:center; flex-wrap:wrap; gap:5px 22px; margin-top:5px; font-size:11px; color:var(--muted)}
+.authors>a:hover {text-decoration:underline}
+.affiliations {display:flex; justify-content:center; flex-wrap:wrap; gap:6px 24px; margin-top:10px; font-size:15px; color:var(--muted)}
 .resource-buttons {display:flex; align-items:center; justify-content:center; gap:9px; flex-wrap:wrap; margin-top:19px}
 .button {font-size:var(--reading-size); font-weight:600; padding:8px 17px; border:1px solid #c9cec6; border-radius:6px; background:#ffffffb3; transition:background .15s}
 .button:hover {background:var(--coord-soft)}
@@ -243,8 +244,8 @@ dialog img {margin:auto; max-height:calc(94vh - 90px); object-fit:contain}
   .nav-links.is-open {display:flex} .nav-links a {font-size:13px; padding:10px 13px}
   .hero {padding:30px 0 40px} .hero .eyebrow {font-size:9px; margin-bottom:9px}
   .wordmark {font-size:68px} h1 {font-size:26px; margin-top:15px; max-width:550px} .desktop-break {display:none}
-  .authors {font-size:11px; gap:3px 12px; line-height:1.65; margin-top:18px}
-  .affiliations {font-size:9px; gap:4px 12px; margin-top:7px}
+  .authors {font-size:16px; gap:7px 16px; line-height:1.65; margin-top:18px}
+  .affiliations {font-size:14px; gap:5px 14px; margin-top:10px}
   .resource-buttons {gap:7px; margin-top:17px} .button {font-size:11px; padding:7px 12px}
   .release-status {font-size:10px; margin:2px 0 0; width:100%; justify-content:center}
   .hero-thesis {font-size:21px; line-height:1.3; margin:22px auto 18px; max-width:330px}
