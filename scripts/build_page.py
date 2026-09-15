@@ -97,11 +97,6 @@ for i, (title, text) in enumerate([
     html += f'<li><span>0{i}</span><div><h3>{title}</h3><p>{text}</p></div></li>'
 html += '</ol></div></div></section>'
 
-html += '<section class="hero highlights section-white" id="highlights"><div class="container hero-inner"><h2 class="hero-thesis">Learning <span class="text-skill">contact skills</span> and <span class="text-coord">when to use them.</span></h2>'
-html += film('hero', 'Watch HiFun', autoplay=True)
-html += '''<div class="film-footnote"><span>25 seconds · real robot executions · edited excerpts</span><span>Recovery includes an additional key-turning example.</span></div>
-<div class="headline-metrics" aria-label="Main evaluation summary"><div><strong>295<span>/300</span></strong><p>successful evaluation trials</p></div><div><strong>6</strong><p>functional manipulation tasks</p></div><div><strong>2</strong><p>dexterous hand embodiments</p></div><div><strong>≤60<span> min</span></strong><p>online HIL per task</p></div></div>
-<p class="source-note hero-note">98.3% mean success over 50 trials per task. The ≤60-minute budget covers online HIL; the full pipeline averages approximately 109 min/task.</p></div></section>'''
 html += '<section class="section section-white" id="method"><div class="container">'
 html += heading('02', 'Method', 'Learn contact skills.<br>Coordinate their execution.', 'HiFun separates learning how the fingers make contact from learning where and when to use that contact. First, residual RL refines a kinesthetic reference into a contact-aware hand skill. With this skill frozen, a coordination policy learns arm motion and skill activation, starting from DMP rollouts and improving through value-guided human-in-the-loop learning. At execution time, the two policies work together to approach the target and perform fine-grained contact.')
 html += '<div class="complete-method-figure">' + figure('method', 'Complete HiFun framework', '') + '</div>'
@@ -165,6 +160,12 @@ challenges = [
 for i, (topic, challenge, insight, response, media_kind, anchor, link) in enumerate(challenges, 1):
     html += f'''<article class="challenge-row" id="challenge-{media_kind}"><div class="challenge-problem"><p class="challenge-label">0{i} / Challenge</p><h3>{topic}</h3><p>{challenge}</p></div><div class="challenge-response"><p class="challenge-label text-coord">HiFun insight</p><h4>{insight}</h4><p>{response}</p></div>{challenge_visual(media_kind, anchor, link)}</article>'''
 html += '</div></section>'
+
+html += '<section class="hero highlights section-white" id="highlights"><div class="container hero-inner"><h2 class="hero-thesis">Learning <span class="text-skill">contact skills</span> and <span class="text-coord">when to use them.</span></h2>'
+html += film('hero', 'Watch HiFun', autoplay=True)
+html += '''<div class="film-footnote"><span>25 seconds · real robot executions · edited excerpts</span><span>Recovery includes an additional key-turning example.</span></div>
+<div class="headline-metrics" aria-label="Main evaluation summary"><div><strong>295<span>/300</span></strong><p>successful evaluation trials</p></div><div><strong>6</strong><p>functional manipulation tasks</p></div><div><strong>2</strong><p>dexterous hand embodiments</p></div><div><strong>≤60<span> min</span></strong><p>online HIL per task</p></div></div>
+<p class="source-note hero-note">98.3% mean success over 50 trials per task. The ≤60-minute budget covers online HIL; the full pipeline averages approximately 109 min/task.</p></div></section>'''
 
 html += '<section class="section section-white citation-only" id="citation-section"><div class="container">'
 html += '''<div class="citation-section"><div class="citation-heading"><h2>Citation</h2><button class="copy-button" id="copy-citation">Copy BibTeX</button></div><pre id="citation"><code>@inproceedings{huang2026hifun,

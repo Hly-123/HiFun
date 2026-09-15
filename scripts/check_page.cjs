@@ -26,7 +26,7 @@ fs.mkdirSync(output, { recursive: true });
     assert.deepEqual(await page.locator('.brand').allTextContents(), ['HiFun', 'HiFun']);
     assert.equal(await page.locator('.wordmark').innerText(), 'HiFun');
     assert.deepEqual(await page.locator('#nav-links a').allTextContents(), ['Overview','Task Challenges','Method','Results','Insights','Citation']);
-    assert.deepEqual(await page.locator('main > section').evaluateAll(els => els.map(el => el.id)), ['top','overview','abstract','demos','highlights','method','results','challenges','citation-section']);
+    assert.deepEqual(await page.locator('main > section').evaluateAll(els => els.map(el => el.id)), ['top','overview','abstract','demos','method','results','challenges','highlights','citation-section']);
     assert.equal(await page.locator('#full-video').count(), 1);
     assert.equal(await page.locator('video[controls]').count(),1);
     assert.equal(await page.locator('#full-video video').evaluate(v=>v.controls&&!v.hasAttribute('data-autoplay')),true);
