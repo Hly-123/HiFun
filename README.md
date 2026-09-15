@@ -3,6 +3,16 @@
 
 Static research homepage with locally hosted fonts, traceable evidence figures and on-demand video playback. No bundler or backend is required. The layout takes visual inspiration from the LaST-HD project page; its content and implementation are specific to HiFun.
 
+## Public website and automatic deployment
+
+- GitHub Pages: https://hly-123.github.io/HiFun/
+- Cloudflare mirror: https://hifun-cfu.pages.dev/
+- Official implementation (coming soon): https://github.com/Hly-123/HiFun-code
+
+This website repository is public. Every push to `master` triggers `.github/workflows/pages.yml`, which rebuilds the page and deploys only the referenced assets from `dist/` to GitHub Pages. Cloudflare continues to build the same branch independently.
+
+For a GitHub Pages build, run `python scripts/build_public_site.py --base-path /HiFun/`. The default build uses `/` for Cloudflare. The base path keeps the 404 page's styles and home link inside the project site.
+
 ## Local preview
 
 From this directory:
@@ -39,7 +49,10 @@ The teaser uses PPT media2 (0–7 s), `Powerdrill_Actuation_AND_Bit_removal.mp4`
 
 ## Page narrative
 
-Title and authors → click-to-play Overview video → expanded Abstract → Task Challenges → 25-second highlights and metrics → Method → six-task results, recovery/generalization and long-horizon execution → four Challenges & Insights → Citation. The task introduction pairs the author-selected tool-position disturbance video with precise contact, arm–hand coordination and reactive recovery requirements. Standalone Experimental evidence, Learning cost & autonomy and Explore the work sections are removed. Recovery & Generalization contains position disturbances and object-size generalization side by side, followed by the finger-level adaptation video and five-frame image. The top resource buttons link to the overview video and public code placeholder; Paper is marked coming soon. No video body loads on initial entry. Overview remains click-to-play; all other clips autoplay when visible and pause offscreen, respecting reduced motion. Inline demos expose only playback and fullscreen buttons, without a seek bar or download menu. These UI restrictions do not provide DRM or prevent retrieval of public media URLs.
+Title and authors → Overview video → expanded Abstract → Task Challenges → Method → six-task results, recovery/generalization and long-horizon execution → Challenges & Insights → 25-second highlights and metrics → Citation.
+
+Videos load when visible and pause offscreen, respecting reduced motion. Overview attempts playback with sound and retains native controls; browsers that block audible autoplay show a play button. Other clips autoplay muted with playback and fullscreen buttons. These controls do not prevent retrieval of public media URLs.
+
 
 Each Challenge includes the author's selected visual: the full `Unlock_pin_tool_Clean.mp4`; the method overview's multi-head critic module beside Appendix Fig. 4A; side-by-side Full-DoF HIL-SERL (`Pin-Tool-HILSERL-Full-DoF.mp4`) and HiFun (`ppt-1-xhand-dig-tool-7s_x264.mp4`); and the method overview's IAW module. The qualitative comparison clips keep their original lengths and speeds and loop independently, with a shared play/pause control. Method modules are cropped from a 7200-pixel rendering of paper page 3, preserving the original formulas and labels. Experimental subplots stack vertically on mobile and open individually for inspection. All selected media are reproducible through `prepare_challenge_assets` in the asset preparation script. Abstract paragraphs use justified alignment with English auto-hyphenation and a left-aligned final line.
 
@@ -87,7 +100,7 @@ The pipette composite plays once and retains its final frame using `data-hold-la
 
 ### Code release entry
 
-The public official implementation placeholder is https://github.com/Hly-123/HiFun-code. Its README identifies the CoRL 2026 paper and marks the implementation as coming soon. The homepage repository remains private. The top resource row starts with Overview video, followed by Paper · Coming soon and the Code · Coming soon link to the public repository. Paper and Appendix links are temporarily removed from the page and their PDFs are excluded from the public build.
+The public official implementation placeholder is https://github.com/Hly-123/HiFun-code. Its README identifies the CoRL 2026 paper and marks the implementation as coming soon. The project page links to the published paper PDF and this code repository.
 
 Challenges are ordered as exploration, intervention interface, credit assignment, and intervention weighting. Challenge and insight descriptions use justified prose within the same width as their headings. The method section shows its short overview and original paper figure directly; the separate two-level diagram and numbered training-stage block are omitted.
 

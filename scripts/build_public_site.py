@@ -1,8 +1,10 @@
-"""Build the public Cloudflare Pages directory using only referenced site files.
+"""Build the public static site using only referenced site files.
 
 Run: python3 scripts/build_public_site.py
 No third-party dependencies or original author media are needed.
 """
+import argparse
+from html import escape
 from html.parser import HTMLParser
 from pathlib import Path
 import re
@@ -47,6 +49,12 @@ def local_path(url, parent):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--base-path', default='/', help='Hosting path, e.g. /HiFun/ for GitHub Pages')
+    args = parser.parse_args()
+    base_path = '/' + args.base_path.strip('/') + '/' if args.base_path.strip('/') else '/'
+    if not re.fullmatch(r'/([A-Za-z0-9_-]+/)*', base_path):
+        parser.error('base-path must contain only slash-separated letters, numbers, hyphens or underscores')
     subprocess.run([sys.executable, str(ROOT / 'scripts/build_page.py')], check=True)
     pending = [ROOT / name for name in ROOT_FILES]
     selected = set()
@@ -82,12 +90,12 @@ def main():
         destination = OUTPUT / path.relative_to(ROOT)
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(path, destination)
-    (OUTPUT / '404.html').write_text('''<!doctype html>
+    (OUTPUT / '404.html').write_text(f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Page not found | HiFun</title><link rel="stylesheet" href="/assets/fonts/fonts.css">
-<link rel="stylesheet" href="/styles.css"></head><body><main class="container section">
+<title>Page not found | HiFun</title><link rel="stylesheet" href="{escape(base_path)}assets/fonts/fonts.css">
+<link rel="stylesheet" href="{escape(base_path)}styles.css"></head><body><main class="container section">
 <p class="eyebrow">HiFun</p><h1>Page not found</h1><p>The page you requested is unavailable.</p>
-<a class="button" href="/">Return to HiFun</a></main></body></html>
+<a class="button" href="{escape(base_path)}">Return to HiFun</a></main></body></html>
 ''', encoding='utf-8')
     total = sum(path.stat().st_size for path in selected)
     print(f'Public build: {len(selected) + 1} files, {total / 1024 / 1024:.1f} MiB -> dist/')
