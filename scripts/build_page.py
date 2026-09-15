@@ -130,7 +130,7 @@ html += '<figure class="recovery-sequence"><div class="recovery-scroll" role="re
 
 html += '<div class="subsection-heading" id="long-horizon"><p class="eyebrow">Long-horizon manipulation</p><h3>Multiple skills, one policy</h3><p>Here, HiFun runs on XHand in a longer functional sequence. The policy turns the key, grasps the drill, and places it into the drawer by coordinating different hand skills. This shows that HiFun can deploy across dexterous hands and integrate multiple skills in one policy.</p></div>'
 html += '<figure class="long-horizon-feature">' + film('long-horizon', 'Watch the long-horizon sequence', speed='1.3×', loop=False) + '<figcaption><strong>Turn the key → grasp the drill → place it in the drawer.</strong> Coordinated execution on XHand.</figcaption></figure></div></section>'
-html += '<section class="section" id="challenges"><div class="container">'
+html += '<section class="section section-white" id="challenges"><div class="container">'
 html += heading('04', 'Learning challenges and design', 'Challenges &amp; Insights', 'Learning these behaviors directly in the full arm–hand action space makes exploration and human correction difficult. HiFun structures the control interface and learning signals to make real-world learning more efficient.')
 challenges = [
     ('High-dimensional exploration',
@@ -167,7 +167,7 @@ html += '''<div class="film-footnote"><span>25 seconds · real robot executions 
 <div class="headline-metrics" aria-label="Main evaluation summary"><div><strong>295<span>/300</span></strong><p>successful evaluation trials</p></div><div><strong>6</strong><p>functional manipulation tasks</p></div><div><strong>2</strong><p>dexterous hand embodiments</p></div><div><strong>≤60<span> min</span></strong><p>online HIL per task</p></div></div>
 <p class="source-note hero-note">98.3% mean success over 50 trials per task. The ≤60-minute budget covers online HIL; the full pipeline averages approximately 109 min/task.</p></div></section>'''
 
-html += '<section class="section section-white citation-only" id="citation-section"><div class="container">'
+html += '<section class="section citation-only" id="citation-section"><div class="container">'
 html += '''<div class="citation-section"><div class="citation-heading"><h2>Citation</h2><button class="copy-button" id="copy-citation">Copy BibTeX</button></div><pre id="citation"><code>@inproceedings{huang2026hifun,
   title = {HiFun: a Hierarchical Framework for Efficient
            Functional Dexterous Manipulation Learning},
