@@ -1,6 +1,6 @@
 'use strict';
 
-// Each source is attached only after a playback request. Only the hero opts into autoplay.
+// Overview is click-to-play; other clips autoplay only while visible, unless reduced motion is enabled.
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const videoStates = new Map();
 const visibilityObserver = new IntersectionObserver(entries => {
@@ -62,6 +62,39 @@ document.querySelectorAll('.managed-video').forEach(video => {
   const frame = video.closest('.media-frame');
   const state = {frame, visible:false, wantsPlayback:video.hasAttribute('data-autoplay') && !reduceMotion.matches, pending:false, environmentPause:false};
   videoStates.set(video, state);
+  const toggle = frame.querySelector('.video-toggle');
+  const updateToggle = () => {
+    if (!toggle) return;
+    const action = video.ended ? 'Replay' : video.paused ? 'Play' : 'Pause';
+    toggle.textContent = action;
+    toggle.setAttribute('aria-label', `${action} ${video.getAttribute('aria-label')}`);
+  };
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      state.environmentPause = false;
+      if (!video.paused) {
+        state.wantsPlayback = false;
+        video.pause();
+      } else {
+        state.wantsPlayback = true;
+        if (video.ended) video.currentTime = 0;
+        attemptPlay(video, state);
+      }
+    });
+    video.addEventListener('play', updateToggle);
+    video.addEventListener('pause', updateToggle);
+    video.addEventListener('ended', updateToggle);
+    frame.addEventListener('contextmenu', event => event.preventDefault());
+    const fullscreen = frame.querySelector('.video-fullscreen');
+    fullscreen.hidden = !frame.requestFullscreen;
+    fullscreen.addEventListener('click', async () => {
+      try {
+        if (document.fullscreenElement === frame) await document.exitFullscreen();
+        else await frame.requestFullscreen();
+      } catch (_) { /* Fullscreen may be unavailable in embedded browsers. */ }
+    });
+    updateToggle();
+  }
   frame.querySelector('.video-start').addEventListener('click', () => {
     state.wantsPlayback = true;
     state.visible = true;

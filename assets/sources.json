@@ -32,14 +32,6 @@
     "audio": "removed for silent inline playback"
   },
   {
-    "asset": "assets/media/angle-spreader.mp4",
-    "source": "PPT/CORL/Video_0530.pptx:ppt/media/media20.mp4",
-    "start_seconds": 0,
-    "duration_seconds": null,
-    "timing": "Source timing preserved; original recording multiplier not documented.",
-    "audio": "removed for silent inline playback"
-  },
-  {
     "asset": "assets/media/contact-recovery.mp4",
     "source": "Submission\\Supplementary Video.mp4",
     "start_seconds": 27,
@@ -53,14 +45,6 @@
     "start_seconds": 0,
     "duration_seconds": null,
     "timing": "2x, labeled in source filename.",
-    "audio": "removed for silent inline playback"
-  },
-  {
-    "asset": "assets/media/spreader-disturbance.mp4",
-    "source": "PPT/CORL/Video_0530.pptx:ppt/media/media24.mp4",
-    "start_seconds": 0,
-    "duration_seconds": null,
-    "timing": "Source timing preserved; original recording multiplier not documented.",
     "audio": "removed for silent inline playback"
   },
   {
@@ -291,33 +275,6 @@
     "audio": "removed for silent inline playback"
   },
   {
-    "asset": "assets/media/pipette-positions.mp4",
-    "source": "PPT/CORL/Video_0530.pptx:ppt/media/media17.mp4",
-    "segments_left_to_right": [
-      {
-        "start_seconds": 0,
-        "duration_seconds": 3.1333333333333333
-      },
-      {
-        "start_seconds": 22,
-        "duration_seconds": 3.1333333333333333
-      },
-      {
-        "start_seconds": 42.2,
-        "duration_seconds": 3.1333333333333333
-      }
-    ],
-    "final_source_frames_seconds": [
-      3.1,
-      25.1,
-      45.3
-    ],
-    "duration_seconds": 3.1333333333333333,
-    "layout": "Three complete portrait frames side by side in 1280x720; no crop.",
-    "timing": "Source 5x playback preserved; simultaneous excerpts end on thumb actuation, with no further acceleration.",
-    "audio": "removed for silent inline playback"
-  },
-  {
     "asset": "assets/media/long-horizon.mp4",
     "source": "video/剪辑后/Cross-hand deployment-unlock key-1.3X.mp4",
     "start_seconds": 0,
@@ -332,6 +289,89 @@
     "start_seconds": 0,
     "duration_seconds": null,
     "timing": "Full supplied clip; source 1.5x playback and inset view preserved.",
+    "audio": "removed for silent inline playback"
+  },
+  {
+    "asset": "assets/media/pipette-adaptation.mp4",
+    "segments_left_to_right": [
+      {
+        "source": "E:\\【RSS Video】\\Supplemental Video\\pipette adaptaion 0207.mp4",
+        "sha256": "e949e3f23700a61ae0f507a1961ff371ffa5a074a015902729f3749b5f3732c2",
+        "start_seconds": 0,
+        "duration_seconds": 6.2,
+        "final_frame_held_until_seconds": 24.933333
+      },
+      {
+        "source": "E:\\【RSS Video】\\Supplemental Video\\pipette_adaptaion_new_others.mp4",
+        "sha256": "beccd93c0d9af3c85db53ad3e654a36d7ec3be144339c594b8643ee9ac045219",
+        "start_seconds": 0,
+        "duration_seconds": 24.933333,
+        "final_frame_held_until_seconds": 24.933333
+      },
+      {
+        "source": "E:\\【RSS Video】\\Supplemental Video\\pipette_adaptaion_new.mp4",
+        "sha256": "86af28770356d5acb308501be0c0badffb9fc74566ed233cee33222efe99af51",
+        "start_seconds": 0,
+        "duration_seconds": 9.066667,
+        "final_frame_held_until_seconds": 24.933333
+      }
+    ],
+    "duration_seconds": 24.933333,
+    "layout": "Three complete portrait videos side by side in 1280x720; no cropping.",
+    "timing": "Source playback speeds preserved. Each shorter clip freezes on its final frame until the longest ends.",
+    "audio": "removed for silent inline playback"
+  },
+  {
+    "asset": "assets/media/deployment-montage.mp4",
+    "source": "G:\\【CoRL HiFun Supplemental Video】\\video\\剪辑后\\九宫格视频\\0605九宫格_x264.mp4",
+    "sha256": "b7613b43399f140b84417d4a0c7775f817ffea2ab0c97aebbf6326444b056613",
+    "start_seconds": 0,
+    "duration_seconds": 20.0,
+    "timing": "Full supplied clip; embedded playback labels and source timing preserved.",
+    "audio": "removed for silent inline playback"
+  },
+  {
+    "asset": "assets/media/position-disturbances.mp4",
+    "source": "G:\\【CoRL HiFun Supplemental Video】\\video\\剪辑后\\九宫格视频\\Zoomout-6_x264.mp4",
+    "sha256": "3abfbf6620be3449cbcb134a9a09c313b80f77c4f0502829d85bf47b21635d60",
+    "start_seconds": 0,
+    "duration_seconds": 20.0,
+    "timing": "Full supplied clip; embedded playback labels and source timing preserved.",
+    "audio": "removed for silent inline playback"
+  },
+  {
+    "asset": "assets/media/xhand-drill.mp4",
+    "source": "G:\\【CoRL HiFun Supplemental Video】\\video\\剪辑后\\九宫格视频\\Zoomout-7_x264.mp4",
+    "sha256": "5c8e0dcee53d8c33aca91415515973707d470c234a8efb39e6760e99317bc2d1",
+    "start_seconds": 0,
+    "duration_seconds": 20.0,
+    "timing": "Full supplied clip; embedded playback labels and source timing preserved.",
+    "audio": "removed for silent inline playback"
+  },
+  {
+    "asset": "assets/media/xhand-faucet.mp4",
+    "source": "G:\\【CoRL HiFun Supplemental Video】\\video\\剪辑后\\九宫格视频\\Zoomout-9-host.mp4",
+    "sha256": "997c88088102183a4ddc53a4b916be1d6e382bc4b6339023dac6f569f83b4f21",
+    "start_seconds": 0,
+    "duration_seconds": 20.0,
+    "timing": "Full supplied clip; embedded playback labels and source timing preserved.",
+    "audio": "removed for silent inline playback"
+  },
+  {
+    "asset": "assets/media/more-dexterous-tasks.mp4",
+    "source": "E:\\【RSS Video】\\RSS Video 素材\\RSS_video_V1-rotate-screw-waterpipe-pipette.mp4",
+    "sha256": "b8d8d59da425df78a2baef644c62c6e288ec7f0545a49425bfc4f882d4a13685",
+    "start_seconds": 0,
+    "duration_seconds": 47.666667,
+    "timing": "Full supplied clip; embedded playback labels and source timing preserved.",
+    "audio": "removed for silent inline playback"
+  },
+  {
+    "asset": "assets/media/angle-spreader-40s.mp4",
+    "source": "PPT/CORL/Video_0530.pptx:ppt/media/media20.mp4",
+    "start_seconds": 0,
+    "duration_seconds": 40,
+    "timing": "First 40 seconds, with source playback speed preserved.",
     "audio": "removed for silent inline playback"
   }
 ]

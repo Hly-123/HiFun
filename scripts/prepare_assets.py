@@ -75,33 +75,8 @@ def prepare_challenge_assets(workspace, assets, manifest, paper=None):
 
 def prepare_evaluation_assets(workspace, assets, manifest, thin_shaft_video=None):
     """Compose three vial placements and preserve the complete long-horizon demo."""
-    # 94 frames per panel; final source frames show alignment and thumb actuation.
-    segments = [(0, 94 / 30), (22, 94 / 30), (42.2, 94 / 30)]
-    with tempfile.TemporaryDirectory(prefix='hifun-pipette-') as temporary:
-        source = Path(temporary) / 'pipette-original.mp4'
-        with zipfile.ZipFile(workspace / 'PPT/CORL/Video_0530.pptx') as archive:
-            with archive.open('ppt/media/media17.mp4') as src, source.open('wb') as dst:
-                shutil.copyfileobj(src, dst)
-        filters = ['[0:v]split=3[p0][p1][p2]']
-        for i, (start, duration) in enumerate(segments):
-            filters.append(f'[p{i}]trim=start={start}:duration={duration},setpts=PTS-STARTPTS,'
-                           f'scale=426:720:force_original_aspect_ratio=decrease,'
-                           f'pad=426:720:(ow-iw)/2:(oh-ih)/2:color=0x202622,'
-                           f'fps=30,setsar=1[v{i}]')
-        filters.append('[v0][v1][v2]hstack=inputs=3:shortest=1,'
-                       'pad=1280:720:1:0:color=0x202622[out]')
-        run('ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-i', source,
-            '-filter_complex', ';'.join(filters), '-map', '[out]', '-an',
-            '-c:v', 'libx264', '-preset', 'fast', '-crf', '22', '-pix_fmt', 'yuv420p',
-            '-movflags', '+faststart', '-threads', '4', assets / 'media/pipette-positions.mp4')
-    manifest.append({'asset': 'assets/media/pipette-positions.mp4',
-                     'source': 'PPT/CORL/Video_0530.pptx:ppt/media/media17.mp4',
-                     'segments_left_to_right': [{'start_seconds': start, 'duration_seconds': duration}
-                                                for start, duration in segments],
-                     'final_source_frames_seconds': [3.1, 25.1, 45.3],
-                     'duration_seconds': 94 / 30, 'layout': 'Three complete portrait frames side by side in 1280x720; no crop.',
-                     'timing': 'Source 5x playback preserved; simultaneous excerpts end on thumb actuation, with no further acceleration.',
-                     'audio': 'removed for silent inline playback'})
+    from prepare_xhand_assets import prepare_xhand_assets
+    prepare_xhand_assets(workspace, assets, manifest)
     source = workspace / 'video/剪辑后/Cross-hand deployment-unlock key-1.3X.mp4'
     run('ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-i', source,
         '-vf', 'scale=1280:-2,fps=30,setsar=1', '-an', '-c:v', 'libx264',
@@ -123,7 +98,7 @@ def prepare_evaluation_assets(workspace, assets, manifest, thin_shaft_video=None
                      'start_seconds': 0, 'duration_seconds': None,
                      'timing': 'Full supplied clip; source 1.5x playback and inset view preserved.',
                      'audio': 'removed for silent inline playback'})
-    for name, time in [('pipette-positions', 3.1), ('long-horizon', 0.25), ('thin-shaft', 0.25)]:
+    for name, time in [('pipette-adaptation', 0.25), ('long-horizon', 0.25), ('thin-shaft', 0.25)]:
         run('ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-ss', time,
             '-i', assets / f'media/{name}.mp4', '-frames:v', '1', '-quality', '90',
             assets / f'posters/{name}.webp')
@@ -166,13 +141,12 @@ def main():
             manifest.append({'asset': f'assets/media/{name}.mp4', 'source': provenance or str(source.relative_to(args.workspace)), 'start_seconds': start, 'duration_seconds': duration, 'timing': note or 'Source timing preserved; original recording multiplier not documented.', 'audio': 'preserved when present' if keep_audio else 'removed for silent inline playback'})
             print('Prepared', name, flush=True)
 
-        for name, i in [('thin-handle', 2), ('pipette', 17), ('bit-removal', 18), ('power-drill', 19), ('angle-spreader', 20), ('thin-shaft', 21)]:
-            encode(name, tmp / f'media{i}.mp4', width=540 if i == 17 else 960,
+        for name, i in [('thin-handle', 2), ('pipette', 17), ('bit-removal', 18), ('power-drill', 19), ('angle-spreader-40s', 20), ('thin-shaft', 21)]:
+            encode(name, tmp / f'media{i}.mp4', duration=40 if i == 20 else None, width=540 if i == 17 else 960,
                    provenance=f'PPT/CORL/Video_0530.pptx:ppt/media/media{i}.mp4',
                    note='5x, as identified by slide movie name pipette-eval-5X-20.' if i == 17 else '')
         encode('contact-recovery', supp, 27, 7, width=1280, note='1x, labeled in the submitted supplementary video.')
         encode('size-transfer', edited / 'Hand-Skill_Generalization-2X.mp4', note='2x, labeled in source filename.')
-        encode('spreader-disturbance', tmp / 'media24.mp4', provenance='PPT/CORL/Video_0530.pptx:ppt/media/media24.mp4')
         encode('shaft-disturbance', tmp / 'media23.mp4', provenance='PPT/CORL/Video_0530.pptx:ppt/media/media23.mp4')
         encode('supplementary', supp, width=1280, note='Playback multipliers are burned into the submitted video.', keep_audio=True)
 

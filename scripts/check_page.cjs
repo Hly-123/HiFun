@@ -25,9 +25,14 @@ fs.mkdirSync(output, { recursive: true });
     assert.equal(await page.locator('h1').evaluate(el => getComputedStyle(el).fontSize), '42px');
     assert.deepEqual(await page.locator('.brand').allTextContents(), ['HiFun', 'HiFun']);
     assert.equal(await page.locator('.wordmark').innerText(), 'HiFun');
-    assert.deepEqual(await page.locator('#nav-links a').allTextContents(), ['Overview','Task Challenges','Insights','Method','Results','Citation']);
-    assert.deepEqual(await page.locator('main > section').evaluateAll(els => els.map(el => el.id)), ['top','overview','abstract','demos','challenges','highlights','method','results','citation-section']);
+    assert.deepEqual(await page.locator('#nav-links a').allTextContents(), ['Overview','Task Challenges','Method','Results','Insights','Citation']);
+    assert.deepEqual(await page.locator('main > section').evaluateAll(els => els.map(el => el.id)), ['top','overview','abstract','demos','highlights','method','results','challenges','citation-section']);
     assert.equal(await page.locator('#full-video').count(), 1);
+    assert.equal(await page.locator('video[controls]').count(),1);
+    assert.equal(await page.locator('#full-video video').evaluate(v=>v.controls&&!v.hasAttribute('data-autoplay')),true);
+    assert.equal(await page.locator('video[data-autoplay]').count(),await page.locator('video').count()-1);
+    assert.ok(await page.locator('video[data-simple-player]').evaluateAll(videos=>videos.every(v=>!v.controls&&v.controlsList.contains('nodownload'))));
+
     assert.equal(await page.locator('#overview h2').innerText(), 'Overview');
     assert.equal(await page.locator('#overview .eyebrow').count(),0);
     assert.equal((await page.locator('#full-video .video-start').innerText()).replace('▶','').trim(),'Play video');
@@ -51,8 +56,19 @@ fs.mkdirSync(output, { recursive: true });
     assert.match(await page.locator('[data-kind="intervention"] figcaption').innerText(),/This avoids direct full-DoF arm-hand exploration and enables more efficient real-world learning/);
     assert.match(await page.locator('[data-kind="iaw"] figcaption').innerText(),/in the same state/);
     assert.doesNotMatch(await page.locator('[data-kind="iaw"] figcaption').innerText(),/not a direct measurement/);
-    assert.deepEqual(await page.locator('.challenge-media').evaluateAll(els=>els.map(el=>el.dataset.kind)),['skill','critic','intervention','iaw']);
+    assert.deepEqual(await page.locator('.challenge-media').evaluateAll(els=>els.map(el=>el.dataset.kind)),['skill','intervention','critic','iaw']);
     assert.equal(await page.locator('#challenges .zoom-figure').count(),4);
+    assert.deepEqual(await page.locator('.challenge-problem .challenge-label').allTextContents(), ['01 / Challenge','02 / Challenge','03 / Challenge','04 / Challenge']);
+    assert.equal(await page.locator('a[href*="assets/documents/"]').count(),0);
+    assert.equal(await page.locator('.resource-buttons > :first-child').innerText(),'Overview video ↗');
+    assert.equal(await page.locator('.resource-buttons button:disabled').innerText(),'Paper · Coming soon');
+    assert.equal(await page.locator('.code-repository').getAttribute('href'),'https://github.com/Hly-123/HiFun-code');
+    assert.equal(await page.locator('#results h2').innerText(),'Functional dexterous tasks.');
+    assert.equal(await page.locator('#method .method-diagram,#method .training-stages,#method details').count(),0);
+    assert.equal(await page.locator('#method .complete-method-figure img').count(),1);
+    const challengeProse = '.challenge-problem>p:last-child,.challenge-response>p:last-child';
+    assert.ok(await page.locator(challengeProse).evaluateAll(els=>els.every(el=>getComputedStyle(el).textAlign==='justify' && el.getBoundingClientRect().width<=el.previousElementSibling.getBoundingClientRect().width+1)));
+
     assert.equal(await page.locator('.interface-flow').count(),0);
     assert.equal(await page.locator('.intervention-comparison video').count(),2);
     assert.equal(await page.locator('.critic-method img').getAttribute('src'),'assets/figures/method-critic.webp');
@@ -90,15 +106,13 @@ fs.mkdirSync(output, { recursive: true });
       assert.equal(await page.locator('#hero-scene').innerText(), caption);
     }
     await page.locator('[data-kind="skill"] video').scrollIntoViewIfNeeded();
-    assert.equal(await page.locator('[data-kind="skill"] video source[src]').count(),0,'Skill clip waits for a click even when visible');
-    await page.locator('[data-kind="skill"] .video-start').click();
+    assert.equal(await page.locator('[data-kind="skill"] video').evaluate(v=>v.controls),false);
     await page.waitForFunction(()=>document.querySelector('[data-kind="skill"] video').currentTime>.1);
     assert.ok(Math.abs(await page.locator('[data-kind="skill"] video').evaluate(v=>v.duration)-25.17)<.05);
     await page.locator('#method').scrollIntoViewIfNeeded();
     await page.waitForFunction(()=>document.querySelector('[data-kind="skill"] video').paused);
     await page.locator('.intervention-comparison').scrollIntoViewIfNeeded();
-    assert.equal(await page.locator('.intervention-comparison video source[src]').count(),0,'Comparison waits for user playback');
-    await page.locator('.play-comparison').click();
+
     await page.waitForFunction(()=>[...document.querySelectorAll('.intervention-comparison video')].every(v=>!v.paused && v.currentTime>.1));
     const comparisonDurations=await page.locator('.intervention-comparison video').evaluateAll(videos=>videos.map(v=>v.duration));
     assert.ok(Math.abs(comparisonDurations[0]-7)<.05 && Math.abs(comparisonDurations[1]-7.03)<.05);
@@ -146,30 +160,25 @@ fs.mkdirSync(output, { recursive: true });
 
     await page.locator('#demos').scrollIntoViewIfNeeded();
     await page.waitForFunction(() => document.querySelector('#hero-video').paused);
-    await page.locator('#demos .video-start').click();
+
     await page.waitForFunction(() => !document.querySelector('#demos video').paused && document.querySelector('#demos video').currentTime > .1);
     await page.locator('#method').scrollIntoViewIfNeeded();
     await page.waitForFunction(() => document.querySelector('#demos video').paused);
     await page.locator('#demos').scrollIntoViewIfNeeded();
     await page.waitForFunction(() => !document.querySelector('#demos video').paused);
     // Explicit user pause must survive leaving and re-entering the viewport.
-    await page.locator('#demos video').evaluate(video => video.pause());
+    await page.locator('#demos .video-toggle').click();
     await page.waitForTimeout(100);
     await page.locator('#method').scrollIntoViewIfNeeded();
     await page.locator('#demos').scrollIntoViewIfNeeded();
     await page.waitForTimeout(250);
     assert.equal(await page.locator('#demos video').evaluate(video => video.paused), true);
 
-    await page.locator('#method summary').click();
-    assert.equal(await page.locator('.training-stages li').count(),3);
-    assert.deepEqual(await page.locator('.training-stages strong').evaluateAll(els => els.map(el => getComputedStyle(el).display)), ['block','block','block']);
-    await page.locator('.training-stages').screenshot({path:path.join(output,'desktop-training-stages.png')});
     await page.locator('#method .zoom-figure').click();
     assert.equal(await page.locator('#figure-dialog').evaluate(d => d.open), true);
     await page.keyboard.press('Escape');
     assert.equal(await page.locator('#figure-dialog').evaluate(d => d.open), false);
     assert.equal(await page.locator('#method .zoom-figure').evaluate(el => el === document.activeElement), true);
-    await page.locator('#method summary').click();
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     await page.locator('#copy-citation').click();
     await page.waitForFunction(() => document.querySelector('#copy-citation').textContent === 'Copied');
@@ -245,7 +254,7 @@ fs.mkdirSync(output, { recursive: true });
       await mobile.locator(selector).scrollIntoViewIfNeeded();
       assert.equal(await mobile.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `Mobile overflow at ${selector}`);
     }
-    await page.locator('#method .method-diagram').screenshot({path:path.join(output,'desktop-method.png')});
+    await page.locator('#method .complete-method-figure').screenshot({path:path.join(output,'desktop-method.png')});
     await page.locator('.task-grid').first().screenshot({path:path.join(output,'desktop-tasks.png')});
 
     const quiet = await browser.newContext({ viewport:{width:390,height:844}, reducedMotion:'reduce' });
@@ -270,7 +279,7 @@ fs.mkdirSync(output, { recursive: true });
     }
     assert.deepEqual(errors, [], 'No browser JS errors');
     assert.deepEqual(failed, [], 'No failed resource responses');
-    const report = {status:'passed',localResources:relative.length,checks:['task challenges between Abstract and Insights; clear title and three demands','17px desktop and 16px mobile captions and supporting copy','paper-grounded task challenges and IAW explanation','removed abstract attribution and requested clip notes','Overview naming and accessible play button','justified desktop/mobile Abstract with left-aligned final lines','four matching challenge media and responsive subplots','full author-selected skill video','method modules and experimental plot keyboard zoom','Full-DoF HIL-SERL versus HiFun video, shared playback and source speeds','full-version Overview and Abstract preserved; focused section order','42px desktop and 26px mobile title','four challenge-insight relationships with valid sources after Evidence removal','25-second highlights and exact 7s/18s caption boundaries','five-frame image and keyboard-accessible mobile scrolling','method step title line breaks','desktop and mobile layout','local resources and anchors','video decoding','lazy loading','offscreen pause and resume','explicit pause persists','mobile navigation','dialog keyboard close and focus return','clipboard','reduced-motion autoplay'],errors,failed};
+    const report = {status:'passed',localResources:relative.length,checks:['task challenges after Abstract; Insights after Results; clear title and three demands','17px desktop and 16px mobile captions and supporting copy','paper-grounded task challenges and IAW explanation','removed abstract attribution and requested clip notes','Overview naming and accessible play button','justified desktop/mobile Abstract with left-aligned final lines','four matching challenge media and responsive subplots','full author-selected skill video','method modules and experimental plot keyboard zoom','Full-DoF HIL-SERL versus HiFun video, shared playback and source speeds','full-version Overview and Abstract preserved; focused section order','42px desktop and 26px mobile title','four challenge-insight relationships with valid sources after Evidence removal','25-second highlights and exact 7s/18s caption boundaries','five-frame image and keyboard-accessible mobile scrolling','desktop and mobile layout','local resources and anchors','video decoding','lazy loading','offscreen pause and resume','explicit pause persists','mobile navigation','dialog keyboard close and focus return','clipboard','reduced-motion autoplay'],errors,failed};
     fs.writeFileSync(path.join(output,'validation.json'),JSON.stringify(report,null,2));
     console.log(JSON.stringify(report,null,2));
   } finally { await browser.close(); }

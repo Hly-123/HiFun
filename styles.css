@@ -402,3 +402,43 @@ figcaption,.source-note,.hero-note,.film-footnote,.evidence-link,
   .finger-adaptation {margin-top:32px}
   .citation-heading h2 {font-size:28px}
 }
+
+/* Align challenge prose with its heading and preserve readable line lengths. */
+.challenge-problem,.challenge-response {min-width:0}
+.challenge-problem>p:last-child,.challenge-response>p:not(.challenge-label),
+.challenge-media figcaption {text-align:justify; text-align-last:left; -webkit-hyphens:auto; hyphens:auto}
+.challenge-problem>p:last-child,.challenge-response>p:not(.challenge-label) {max-width:480px}
+.challenge-media[data-kind="iaw"] {grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:64px}
+.challenge-media[data-kind="iaw"] figcaption {max-width:480px; width:100%}
+.challenge-media figcaption>strong {text-align:left}
+.section-heading>p:not(.eyebrow),
+.subsection-heading>p:not(.eyebrow),
+.challenge-problem>p:last-child,
+.challenge-response>p:not(.challenge-label),
+.challenge-media figcaption,
+.challenge-media figcaption>p {
+  text-align:justify;
+  text-align-last:left;
+  text-justify:inter-word;
+  -webkit-hyphens:auto;
+  hyphens:auto;
+  hyphenate-limit-chars:6 3 3;
+}
+#method .research-details>summary {font-size:24px; line-height:1.4}
+@media(max-width:760px) {
+  .challenge-media[data-kind="iaw"] {grid-template-columns:minmax(0,1fr); gap:24px}
+  #method .research-details>summary {font-size:22px}
+}
+
+.xhand-demo h3 {font-size:22px; margin-top:7px}
+.xhand-demo>p {font-size:var(--reading-size); line-height:1.7; color:var(--muted); margin-top:12px}
+.more-tasks-feature {display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:30px}
+@media(max-width:760px) {.more-tasks-feature {grid-template-columns:minmax(0,1fr); gap:24px}}
+.video-controls {display:none; position:absolute; right:12px; bottom:12px; gap:6px; z-index:4}
+.media-frame.is-started .video-controls {display:flex}
+.video-controls button {border:1px solid #ffffff80; border-radius:6px; background:#17211de6; color:white; padding:8px 12px; font-size:13px; line-height:1.2; min-height:36px}
+.video-controls button:hover {background:var(--coord)}
+.video-controls button[hidden] {display:none}
+.media-frame:has(#hero-video) .video-controls {top:12px; bottom:auto}
+.media-frame:fullscreen {width:100%; height:100%; border-radius:0; background:#17211d}
+.media-frame:fullscreen video {object-fit:contain}
