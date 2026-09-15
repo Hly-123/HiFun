@@ -1,5 +1,5 @@
 :root {
-  --paper:#f6f4ef; --white:#fff; --ink:#202622; --muted:#606b65; --line:#dedfd7;
+  --paper:#f6f4ef; --paper-tint:#faf8f3; --white:#fff; --ink:#181a1f; --muted:#626b76; --line:#e7e3d9;
   --skill:#3866c4; --skill-soft:#eef2fb; --coord:#277657; --coord-soft:#eaf3ec;
   --reading-size:17px;
   --display:'Space Grotesk',system-ui,sans-serif; --body:'Inter',system-ui,sans-serif;
@@ -16,40 +16,43 @@ a:focus-visible,button:focus-visible,summary:focus-visible,video:focus-visible,[
 ::selection {background:#d9e8dc}
 h1,h2,h3,h4,p,figure {margin:0}
 h1,h2,h3,h4 {font-family:var(--display); font-weight:600; letter-spacing:-.035em; line-height:1.13}
-h2 {font-size:clamp(34px,4.1vw,54px)}
+h2 {font-size:clamp(32px,3.4vw,46px); line-height:1.12; letter-spacing:-.025em}
 h3 {font-size:26px} h4 {font-size:21px}
 p {overflow-wrap:break-word}
 img {display:block; max-width:100%; height:auto}
 sup {font-size:.62em; color:var(--skill); margin-left:2px}
 small {font-size:.8em}
 .container {width:min(1180px,calc(100% - 64px)); margin-inline:auto}
-.section {padding:100px 0}
+.section {padding:96px 0}
 .section-white {background:var(--white); border-block:1px solid var(--line)}
 .text-skill {color:var(--skill)!important} .text-coord {color:var(--coord)!important}
 .eyebrow {font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.17em; line-height:1.5; color:var(--coord); margin-bottom:20px; display:flex; align-items:center; gap:11px}
 .eyebrow:before {content:''; height:2px; width:24px; background:currentColor; flex-shrink:0}
-.section-heading {max-width:none; margin-bottom:48px}
+.section-heading {max-width:none; margin-bottom:38px}
 .section-heading>p:last-child {margin-top:24px; color:var(--muted); max-width:none}
 .small {font-size:14px; line-height:1.65; color:var(--muted)}
 .source-note {font-size:var(--reading-size); line-height:1.7; color:var(--muted); margin-top:20px}
 .source-note a,figcaption a,.cost-summary a,.footer-credit a,.noscript-note a {text-decoration:underline}
-.site-header {position:sticky; top:0; z-index:20; background:rgba(246,244,239,.95); backdrop-filter:blur(14px); border-bottom:1px solid var(--line)}
+.site-header {position:sticky; top:0; z-index:20; background:rgba(246,244,239,.82); backdrop-filter:saturate(140%) blur(16px); border-bottom:1px solid var(--line)}
 .nav {height:66px; display:flex; justify-content:space-between; align-items:center}
 .brand {font:700 25px var(--display); letter-spacing:-1px; display:flex; align-items:center}
 .brand-symbol {display:flex; gap:3px; margin-right:10px; transform:rotate(-10deg)}
 .brand-symbol i {display:block; width:6px; height:19px; background:var(--skill); border-radius:2px}
 .brand-symbol i:last-child {background:var(--coord); margin-top:5px}
 .nav-links {display:flex; gap:8px; align-items:center}
-.nav-links a {font-size:13px; font-weight:600; color:var(--muted); padding:7px 14px; border-radius:5px}
+.nav-links a {font-size:14px; font-weight:600; color:var(--muted); padding:8px 12px; border-radius:9px}
 .nav-links a:hover,.nav-links a.active {color:var(--coord); background:var(--coord-soft)}
 .menu-toggle {display:none; padding:8px 0; color:var(--ink); border:0; background:none; font-size:14px}
 .progress-track {height:2px; position:absolute; bottom:-1px; inset-inline:0; pointer-events:none}
 #progress {display:block; width:0; height:100%; background:linear-gradient(90deg,var(--skill),var(--coord))}
-.hero {padding:42px 0 58px; background:radial-gradient(ellipse at 75% 0,rgba(39,118,87,.055),transparent 45%),radial-gradient(ellipse at 22% 0,rgba(56,102,196,.055),transparent 50%),var(--paper)}
+.hero {padding:54px 0 62px; background:var(--paper)}
+#top {position:relative; isolation:isolate; background:linear-gradient(180deg,#fbfaf7 0%,#f4f1ea 100%)}
+#top:before {content:""; position:absolute; inset:0; z-index:-1; pointer-events:none; background-image:linear-gradient(to right,rgba(24,26,31,.035) 1px,transparent 1px),linear-gradient(to bottom,rgba(24,26,31,.035) 1px,transparent 1px); background-size:46px 46px; mask-image:linear-gradient(#000,transparent 92%)}
 .hero-inner {text-align:center}
 .hero .eyebrow {justify-content:center; font-size:10px; margin-bottom:8px}
 .wordmark {font:600 clamp(64px,7.3vw,96px)/1 var(--display); letter-spacing:-.085em; color:var(--skill)}
-.wordmark span {color:var(--coord)}
+.wordmark {width:fit-content; margin-inline:auto; background:linear-gradient(110deg,var(--skill) 20%,var(--coord) 85%); background-clip:text; -webkit-background-clip:text; color:transparent}
+.wordmark span {color:inherit}
 h1 {font-size:clamp(26px,3vw,42px); line-height:1.22; font-weight:500; margin:15px auto 0; max-width:1120px; letter-spacing:-.025em}
 .conference-badge {display:table; margin:20px auto 0; padding:7px 18px; border:1px solid #c4d8cb; border-radius:999px; background:#e8f1e9; color:var(--coord); font-size:var(--reading-size); line-height:1.5; letter-spacing:.015em}
 .conference-badge strong {font-weight:700}
@@ -58,15 +61,15 @@ h1 {font-size:clamp(26px,3vw,42px); line-height:1.22; font-weight:500; margin:15
 .authors>a:hover {text-decoration:underline}
 .affiliations {display:flex; justify-content:center; flex-wrap:wrap; gap:6px 24px; margin-top:10px; font-size:15px; color:var(--muted)}
 .resource-buttons {display:flex; align-items:center; justify-content:center; gap:9px; flex-wrap:wrap; margin-top:19px}
-.button {font-size:var(--reading-size); font-weight:600; padding:8px 17px; border:1px solid #c9cec6; border-radius:6px; background:#ffffffb3; transition:background .15s}
+.button {font-size:var(--reading-size); font-weight:600; padding:8px 17px; border:1px solid #c9cec6; border-radius:10px; background:#ffffffb3; transition:background .15s}
 .button:hover {background:var(--coord-soft)}
 .button-dark {background:var(--ink); border-color:var(--ink); color:white}
 .button-dark:hover {background:var(--coord); color:white; border-color:var(--coord)}
 .button-coming-soon:disabled {color:var(--muted); background:#ffffffb3; cursor:default; opacity:1}
 .hero-thesis {font-family:var(--display); font-size:clamp(18px,2vw,23px); margin:24px 0 19px; font-weight:500; letter-spacing:-.035em}
-.media-frame {position:relative; overflow:hidden; background:#17211d; border-radius:10px; aspect-ratio:16/9; isolation:isolate}
+.media-frame {position:relative; overflow:hidden; background:#17211d; border-radius:16px; aspect-ratio:16/9; isolation:isolate}
 .media-frame video {display:block; width:100%; height:100%; aspect-ratio:16/9; object-fit:contain; background:#17211d}
-.hero .media-frame {max-width:1050px; margin:auto; border-radius:12px}
+.hero .media-frame {max-width:1050px; margin:auto; border-radius:18px}
 .media-frame:not(.is-started):after {content:''; position:absolute; inset:40% 0 0; background:linear-gradient(transparent,rgba(0,0,0,.22)); pointer-events:none; z-index:0}
 .video-start {position:absolute; inset:50% auto auto 50%; transform:translate(-50%,-50%); padding:12px 20px; border:1px solid #ffffff70; border-radius:7px; background:#17211dd9; color:white; font-size:13px; font-weight:600; display:flex; align-items:center; justify-content:center; gap:10px; width:max-content; max-width:90%; line-height:1.4; z-index:3; box-shadow:0 4px 20px #0002}
 .video-start:hover {background:#277657ee}
@@ -210,8 +213,8 @@ tbody th {font-weight:500} tbody tr:first-child {color:var(--coord)}
 .citation-heading {display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:20px}
 .citation-heading h3 {font-size:23px}
 .copy-button {font-size:11px; background:white; color:var(--ink); border:1px solid var(--line); border-radius:5px; padding:8px 12px}
-pre {margin:0; background:#edece5; border-radius:6px; padding:24px; overflow:auto; font-size:var(--reading-size); line-height:1.8; tab-size:2}
-footer {border-top:1px solid var(--line); padding:28px 0; background:#eeeee7}
+pre {margin:0; background:var(--paper-tint); border:1px solid var(--line); border-radius:14px; padding:24px; overflow:auto; font-size:var(--reading-size); line-height:1.8; tab-size:2}
+footer {border-top:1px solid var(--line); padding:28px 0; background:var(--paper-tint)}
 .footer-inner {display:flex; align-items:center; justify-content:space-between; gap:25px}
 .footer-inner p,.footer-inner>a:last-child {font-size:var(--reading-size); color:var(--muted)}
 .footer-credit {font-size:10px; color:var(--muted); margin-top:20px}
@@ -297,10 +300,12 @@ dialog img {margin:auto; max-height:calc(94vh - 90px); object-fit:contain}
   .footer-credit {font-size:9px; line-height:1.7} dialog {max-width:96vw; padding:12px}
 }
 /* Overview and the four challenge-to-design relationships. */
-.overview {padding:0 0 70px}
+.overview {padding:64px 0 80px; background:var(--white); border-block:1px solid var(--line)}
 .overview>.container {max-width:1050px}
-.overview-title {font-size:28px}
+.overview-title {font-size:32px}
 .overview .full-video {margin:24px 0 0}
+#abstract {background:var(--paper); border:0}
+#method {background:var(--paper-tint)}
 .abstract-container {max-width:760px}
 #abstract .abstract p {font-size:18px; line-height:1.8; margin-top:24px; max-width:760px}
 #abstract .abstract p:not(.source-note) {text-align:justify; text-align-last:left; text-justify:inter-word; -webkit-hyphens:auto; hyphens:auto; hyphenate-limit-chars:6 3 3}
@@ -333,7 +338,7 @@ dialog img {margin:auto; max-height:calc(94vh - 90px); object-fit:contain}
 .comparison-clip-heading h5 {font:600 19px/1.25 var(--display); margin:0}
 .comparison-clip-heading>span {font-size:11px; color:var(--muted); white-space:nowrap}
 .play-comparison {display:block; margin:16px auto 0}
-.highlights {padding-block:65px}
+.highlights {padding-block:80px; background:var(--paper-tint)}
 .highlights .hero-thesis {font-size:clamp(28px,3vw,40px); margin:0 auto 30px; line-height:1.25; max-width:900px}
 .recovery-sequence {margin:28px 0 0}
 .recovery-scroll {max-width:100%; overflow-x:auto; overscroll-behavior-x:contain; border:1px solid var(--line); border-radius:8px; background:white}
@@ -343,7 +348,7 @@ dialog img {margin:auto; max-height:calc(94vh - 90px); object-fit:contain}
 .is-panorama .dialog-image-scroll img {width:2200px; max-width:none; max-height:none}
 .dialog-toolbar button {flex-shrink:0}
 @media(max-width:760px) {
-  .overview {padding-bottom:40px} .overview-title {font-size:25px}
+  .overview {padding:40px 0 48px} .overview-title {font-size:28px}
   .overview .full-video {margin-top:20px}
   #abstract .abstract p {font-size:16px; line-height:1.8}
   .challenge-row {grid-template-columns:minmax(0,1fr); gap:25px; padding:30px 0 34px}
@@ -389,7 +394,7 @@ figcaption,.source-note,.hero-note,.film-footnote,.evidence-link,
 @media(prefers-reduced-motion:reduce) {html {scroll-behavior:auto} *,*:before,*:after {transition:none!important; animation:none!important}}
 
 /* Task demands precede learning challenges; three recovery examples stay together. */
-#demos h2 {font-size:clamp(34px,3.6vw,50px); line-height:1.18; letter-spacing:-.035em}
+#demos h2 {font-size:clamp(32px,3.4vw,46px); line-height:1.18; letter-spacing:-.025em}
 #demos .contact-sequence {gap:28px}
 #demos .contact-sequence h3 {font-size:22px}
 .finger-adaptation {margin-top:40px}
