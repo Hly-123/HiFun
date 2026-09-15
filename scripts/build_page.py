@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def film(name, label, *, autoplay=False, speed='', portrait=False, loop=True, button_label=None, hold_last_frame=False):
     return f'''<div class="media-frame{' portrait-video' if portrait else ''}">
-      <video class="managed-video" {'id="hero-video"' if autoplay else ''} {'controls' if name == 'supplementary' else 'data-autoplay data-simple-player controlslist="nodownload noplaybackrate noremoteplayback" disablepictureinpicture disableremoteplayback'} {'data-hold-last-frame' if hold_last_frame else ''} muted playsinline {'loop' if loop else ''} preload="none" poster="assets/posters/{name}.webp" width="{'540' if portrait else '1280'}" height="{'960' if portrait else '720'}" aria-label="{escape(label)}">
+      <video class="managed-video" {'id="hero-video"' if autoplay else ''} {'controls data-autoplay' if name == 'supplementary' else 'data-autoplay data-simple-player controlslist="nodownload noplaybackrate noremoteplayback" disablepictureinpicture disableremoteplayback'} {'data-hold-last-frame' if hold_last_frame else ''} muted playsinline {'loop' if loop else ''} preload="none" poster="assets/posters/{name}.webp" width="{'540' if portrait else '1280'}" height="{'960' if portrait else '720'}" aria-label="{escape(label)}">
         <source data-src="assets/media/{name}.mp4" type="video/mp4">
       </video>{f'<span class="speed-label">{speed}</span>' if speed else ''}
       <button class="video-start" aria-label="Play {escape(label)}"><span aria-hidden="true">▶</span> {escape(button_label or label)}</button>

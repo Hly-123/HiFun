@@ -1,6 +1,6 @@
 'use strict';
 
-// Overview is click-to-play; other clips autoplay only while visible, unless reduced motion is enabled.
+// Videos autoplay only while visible, unless reduced motion is enabled.
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const videoStates = new Map();
 const visibilityObserver = new IntersectionObserver(entries => {
