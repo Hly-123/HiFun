@@ -373,5 +373,12 @@
     "duration_seconds": 40,
     "timing": "First 40 seconds, with source playback speed preserved.",
     "audio": "removed for silent inline playback"
+  },
+  {
+    "asset": "assets/documents/hifun-corl2026.pdf",
+    "source": "D:\\HKUST-GZ\\博一上\\【CORL】\\HiFun_2026\\main.pdf",
+    "sha256": "2427c1aeafd41f4ad700f806154becae0c2eda94e11bb3a5b5be109daea4bc25",
+    "processing": "20 pages preserved. Two >10 MiB embedded PNG figures encoded as JPEG quality 98, 4:4:4 at original resolution. All page text verified unchanged.",
+    "output_sha256": "1543cfda9c2bb560ea06d152c6e5c01156c2d655cfa3fe8a870603b30d0aeea8"
   }
 ]
