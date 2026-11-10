@@ -7,7 +7,7 @@ Static research homepage with locally hosted fonts, traceable evidence figures a
 
 - GitHub Pages: https://hly-123.github.io/HiFun/
 - Cloudflare mirror: https://hifun-cfu.pages.dev/
-- Official implementation (coming soon): https://github.com/Hly-123/HiFun-code
+- Official implementation: https://github.com/Hly-123/HiFun_code
 
 This website repository is public. Every push to `master` triggers `.github/workflows/pages.yml`, which rebuilds the page and deploys only the referenced assets from `dist/` to GitHub Pages. Cloudflare continues to build the same branch independently.
 
@@ -100,7 +100,7 @@ The pipette composite plays once and retains its final frame using `data-hold-la
 
 ### Code release entry
 
-The public official implementation placeholder is https://github.com/Hly-123/HiFun-code. Its README identifies the CoRL 2026 paper and marks the implementation as coming soon. The project page links to the published paper PDF and this code repository.
+The Code button links to the official implementation at https://github.com/Hly-123/HiFun_code.
 
 Challenges are ordered as exploration, intervention interface, credit assignment, and intervention weighting. Challenge and insight descriptions use justified prose within the same width as their headings. The method section shows its short overview and original paper figure directly; the separate two-level diagram and numbered training-stage block are omitted.
 

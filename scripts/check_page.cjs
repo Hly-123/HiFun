@@ -65,7 +65,7 @@ fs.mkdirSync(output, { recursive: true });
     assert.equal(await page.locator('a[href*="assets/documents/"]').count(),1);
     assert.equal(await page.locator('.resource-buttons > :first-child').innerText(),'Paper ↗');
     assert.equal(await page.locator('.resource-buttons > :first-child').getAttribute('href'),'assets/documents/hifun-corl2026.pdf');
-    assert.equal(await page.locator('.code-repository').getAttribute('href'),'https://github.com/Hly-123/HiFun-code');
+    assert.equal(await page.locator('.code-repository').getAttribute('href'),'https://github.com/Hly-123/HiFun_code');
     assert.equal(await page.locator('#results h2').innerText(),'Functional dexterous tasks.');
     assert.equal(await page.locator('#method .method-diagram,#method .training-stages,#method details').count(),0);
     assert.equal(await page.locator('#method .complete-method-figure img').count(),1);
