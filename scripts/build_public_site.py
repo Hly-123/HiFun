@@ -57,6 +57,8 @@ def main():
         parser.error('base-path must contain only slash-separated letters, numbers, hyphens or underscores')
     subprocess.run([sys.executable, str(ROOT / 'scripts/build_page.py')], check=True)
     pending = [ROOT / name for name in ROOT_FILES]
+    # Keep the published PDF available to personal-site links and bookmarks.
+    pending.append(ROOT / "assets/documents/hifun-corl2026.pdf")
     selected = set()
     while pending:
         path = pending.pop()
